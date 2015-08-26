@@ -29,4 +29,10 @@ public class SettingsManager : ScreenManager
 		UIStateManager.Instance.ActiveScreens &= ~UIState.OnSettingsScreen;
 		UIStateManager.Instance.ChangeUIState (UIStateManager.Instance.ActiveScreens);
 	}
+
+	public void OnClickQuit ()
+	{
+		UIStateManager.Instance.ActiveScreens = UIState.Reset;
+		UIStateManager.Instance.ChangeUIState (UIState.OnTitleScreen);
+	}
 }
