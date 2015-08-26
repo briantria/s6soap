@@ -26,7 +26,7 @@ public class UIStateManager : MonoBehaviour
 	public void ChangeUIState (UIState p_uiState)
 	{
 		ActiveScreens |= p_uiState;
-		Debug.Log("Active screen(s): " + ActiveScreens.ToString ());
+		//Debug.Log("Active screen(s): " + ActiveScreens.ToString ());
 
 		if (changeUIState != null)
 		{

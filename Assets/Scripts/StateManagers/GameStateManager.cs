@@ -16,6 +16,8 @@ public class GameStateManager : MonoBehaviour
 	public delegate void GameStateDelegate (GameState p_gameState);
 	public static event GameStateDelegate changeGameState;
 
+	public GameState CurrentState { get; set; }
+
 	protected void Awake ()
 	{
 		m_instance = this;
@@ -27,6 +29,8 @@ public class GameStateManager : MonoBehaviour
 		{
 			changeGameState (p_gameState);
 		}
+
+		CurrentState = p_gameState;
 	}
 }
 

@@ -27,7 +27,8 @@ public class LoadScreenManager : MonoBehaviour
 	protected void Start ()
 	{
 		UIStateManager.Instance.ActiveScreens = UIState.Reset;
-		UIStateManager.Instance.ChangeUIState (UIState.OnTitleScreen);
+		//UIStateManager.Instance.ChangeUIState (UIState.OnTitleScreen);
+		UIStateManager.Instance.ChangeUIState (UIState.OnGameScreen);
 		StartCoroutine (InitLoading());
 	}
 
