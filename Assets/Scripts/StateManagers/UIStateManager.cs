@@ -16,6 +16,8 @@ public class UIStateManager : MonoBehaviour
 	public delegate void UIStateDelegate (UIState p_uiState);
 	public static event UIStateDelegate changeUIState;
 
+	public UIState ActiveScreens { get; set; }
+
 	protected void Awake ()
 	{
 		m_instance = this;
@@ -23,6 +25,9 @@ public class UIStateManager : MonoBehaviour
 
 	public void ChangeUIState (UIState p_uiState)
 	{
+		ActiveScreens |= p_uiState;
+		Debug.Log("Active screen(s): " + ActiveScreens.ToString ());
+
 		if (changeUIState != null)
 		{
 			changeUIState (p_uiState);
@@ -33,8 +38,9 @@ public class UIStateManager : MonoBehaviour
 [Flags]
 public enum UIState
 {
-	NoActiveScreen = 0,
-	OnTitleScreen  = 1 << 0, // 0x01
-	OnGameScreen   = 1 << 1, // 0x02
-	OnResultScreen = 1 << 2  // 0x04
+	Reset            = 0,      // 0x00
+	OnTitleScreen    = 1 << 0, // 0x01
+	OnGameScreen     = 1 << 1, // 0x02
+	OnSettingsScreen = 1 << 3, // 0x04
+	OnResultScreen   = 1 << 4  // 0x08
 }

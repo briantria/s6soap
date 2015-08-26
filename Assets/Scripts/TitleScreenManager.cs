@@ -8,50 +8,31 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class TitleScreenManager : MonoBehaviour
+public class TitleScreenManager : ScreenManager
 {
-	private List<GameObject> m_listChildrenObj = new List<GameObject>();
-
-	protected void OnEnable ()
+	override protected void ChangeUIState (UIState p_uiState)
 	{
-		UIStateManager.changeUIState += ChangeUIState;
-	}
+		// first, be sure we're not previously on game screen
+		bool bShowChild = (UIState.OnGameScreen & UIStateManager.Instance.ActiveScreens) <= 0;
 
-	protected void OnDisable ()
-	{
-		UIStateManager.changeUIState -= ChangeUIState;
-	}
-
-	protected void Awake ()
-	{
-		LoadScreenManager.Instance.TotalInitObjectLoadCount += this.transform.childCount;
-
-		foreach (Transform child in this.transform)
-		{
-			m_listChildrenObj.Add (child.gameObject);
-		}
-	}
-
-	public void OnClickDayMode ()
-	{
-		UIStateManager.Instance.ChangeUIState (UIState.OnGameScreen);
-	}
-
-	public void OnClickNightMode ()
-	{
-		UIStateManager.Instance.ChangeUIState (UIState.OnGameScreen);
-	}
-	
-	private void ChangeUIState (UIState p_uiState)
-	{
-		bool bShowChild = false;
-
-		p_uiState  &= UIState.OnTitleScreen;
-		bShowChild  = p_uiState > 0;
+		p_uiState  &= (UIState.OnTitleScreen | UIState.OnSettingsScreen);
+		bShowChild &= p_uiState > 0;
 
 		foreach (GameObject childObj in m_listChildrenObj)
 		{
 			childObj.SetActive (bShowChild);
 		}
+	}
+	
+	public void OnClickDayMode ()
+	{
+		UIStateManager.Instance.ActiveScreens = UIState.Reset;
+		UIStateManager.Instance.ChangeUIState (UIState.OnGameScreen);
+	}
+	
+	public void OnClickNightMode ()
+	{
+		UIStateManager.Instance.ActiveScreens = UIState.Reset;
+		UIStateManager.Instance.ChangeUIState (UIState.OnGameScreen);
 	}
 }
