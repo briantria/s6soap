@@ -17,10 +17,12 @@ public class GameStateManager : MonoBehaviour
 	public static event GameStateDelegate changeGameState;
 
 	public GameState CurrentState { get; set; }
+	public bool      IsPaused     { get; set; }
 
 	protected void Awake ()
 	{
 		m_instance = this;
+		IsPaused = false;
 	}
 
 	public void ChangeGameState (GameState p_gameState)
