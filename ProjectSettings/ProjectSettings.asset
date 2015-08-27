@@ -77,7 +77,6 @@ PlayerSettings:
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   xboxOneDisableKinectGpuReservation: 0
-  virtualRealitySupported: 0
   productGUID: f4dc19f45bf55b84d8fcc076c83a0969
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 9
@@ -138,7 +137,10 @@ PlayerSettings:
     - m_Icon: {fileID: 0}
       m_Size: 128
   m_BuildTargetBatching: []
-  m_BuildTargetGraphicsAPIs: []
+  m_BuildTargetGraphicsAPIs:
+  - m_BuildTarget: AndroidPlayer
+    m_APIs: 08000000
+    m_Automatic: 0
   webPlayerTemplate: APPLICATION:Default
   m_TemplateCustomTags: {}
   actionOnDotNetUnhandledException: 1
@@ -201,7 +203,7 @@ PlayerSettings:
   ps4ApplicationParam3: 0
   ps4ApplicationParam4: 0
   ps4GarlicHeapSize: 2048
-  ps4Passcode: frAQBc8Wsa1xVPfvJcrgRYwTiizs2trQ
+  ps4Passcode: 5xr84P2R391UXaLHbavJvFZGfO47XWS2
   ps4pnSessions: 1
   ps4pnPresence: 1
   ps4pnFriends: 1
@@ -255,6 +257,7 @@ PlayerSettings:
   psp2InfoBarOnStartup: 0
   psp2InfoBarColor: 0
   psmSplashimage: {fileID: 0}
+  virtualRealitySupported: 0
   spritePackerPolicy: 
   scriptingDefineSymbols: {}
   metroPackageName: soap_unity
@@ -390,12 +393,8 @@ PlayerSettings:
   boolPropertyNames:
   - WebGL::analyzeBuildSize
   - WebGL::dataCaching
-  - WebGL::useEmbeddedResources
-  - XboxOne::enus
   WebGL::analyzeBuildSize: 0
   WebGL::dataCaching: 0
-  WebGL::useEmbeddedResources: 0
-  XboxOne::enus: 1
   stringPropertyNames:
   - WebGL::emscriptenArgs
   - WebGL::template
