@@ -22,7 +22,7 @@ public class GameStateManager : MonoBehaviour
 	protected void Awake ()
 	{
 		m_instance = this;
-		IsPaused = false;
+		IsPaused = true;
 	}
 
 	public void ChangeGameState (GameState p_gameState)
@@ -40,7 +40,7 @@ public class GameStateManager : MonoBehaviour
 public enum GameState
 {
 	Inactive = 0,
-	Idle     = 1 << 0, // 0x01
+//	Idle     = 1 << 0, // 0x01
 	Start    = 1 << 1, // 0x02
 	Running  = 1 << 2, // 0x04
 	GameOver = 1 << 3, // 0x08

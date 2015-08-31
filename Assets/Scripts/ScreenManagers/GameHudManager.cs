@@ -10,6 +10,20 @@ using System.Collections.Generic;
 
 public class GameHudManager : ScreenManager 
 {
+	private static Vector2 m_v2MinScreenToWorldBounds;
+	public  static Vector2 MinScreenToWorldBounds {get{return m_v2MinScreenToWorldBounds;}}
+	
+//	private static Vector2 m_v2MaxScreenToWorldBounds;
+//	public  static Vector2 MaxScreenToWorldBounds {get{return m_v2MinScreenToWorldBounds;}}
+
+	protected override void Awake ()
+	{
+		base.Awake ();
+		
+		m_v2MinScreenToWorldBounds = Camera.main.ScreenToWorldPoint (Vector2.zero);
+//		m_v2MaxScreenToWorldBounds = Camera.main.ScreenToWorldPoint (Vector2.one);
+	}
+
 	override protected void ChangeUIState (UIState p_uiState)
 	{
 		// first, be sure we're not previously on title screen

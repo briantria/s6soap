@@ -10,7 +10,9 @@ using System.Collections.Generic;
 
 public class GamePlayManager : MonoBehaviour 
 {
-	public static readonly int LEVEL_PATTERN_COUNT = 3;
+	public static readonly int MAX_LEVEL_PATTERN_COUNT = 3;
+	public static readonly float LEVEL_SPEED = 2.0f;
+	
 	private List<LevelPatternManager> m_listLevelPatterns = new List<LevelPatternManager>();
 
 	protected void OnEnable ()
@@ -27,7 +29,7 @@ public class GamePlayManager : MonoBehaviour
 	{
 		int iMultiplier  = 4;  // 4 level pattern elements
 		    iMultiplier *= LevelPatternManager.MAX_COLUMN;
-		LoadScreenManager.Instance.TotalInitObjectLoadCount += LEVEL_PATTERN_COUNT * iMultiplier;
+		LoadScreenManager.Instance.TotalInitObjectLoadCount += MAX_LEVEL_PATTERN_COUNT * iMultiplier;
 	}
 
 	protected void Start ()
@@ -37,18 +39,17 @@ public class GamePlayManager : MonoBehaviour
 
 	private void SetupLevelPatterns ()
 	{
-		for (int idx = 0; idx < LEVEL_PATTERN_COUNT; ++idx)
+		for (int idx = 0; idx < MAX_LEVEL_PATTERN_COUNT; ++idx)
 		{
 			GameObject objLevelPattern = new GameObject ("LevelPattern" + idx);
 			
 			Transform tLevelPattern = objLevelPattern.transform;
 			tLevelPattern.SetParent (this.transform);
-			//tLevelPattern.position = Vector3.zero;
 			tLevelPattern.localScale = Vector3.one;
 			
 			LevelPatternManager levelPatternManager = objLevelPattern.AddComponent<LevelPatternManager> ();
-			levelPatternManager.Setup ();
-			tLevelPattern.position = new Vector3 (-5.0f + (levelPatternManager.Width * idx), -2.0f, 0.0f);
+			levelPatternManager.Setup (idx);
+			levelPatternManager.OffsetPosition (new Vector3 (-5.0f, LevelPatternManager.LOWER_OFFSET_Y, 0.0f));
 			m_listLevelPatterns.Add (levelPatternManager);
 		}
 	}
@@ -72,6 +73,7 @@ public class GamePlayManager : MonoBehaviour
 			}
 			
 			GameStateManager.Instance.IsPaused = false;
+			GameStateManager.Instance.ChangeGameState (GameState.Running);
 		}
 	}
 }
