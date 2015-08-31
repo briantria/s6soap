@@ -25,7 +25,10 @@ public class ScreenManager : MonoBehaviour
 	virtual protected void Awake ()
 	{
 		LoadScreenManager.Instance.TotalInitObjectLoadCount += this.transform.childCount;
-		
+	}
+
+	virtual protected void Start ()
+	{
 		foreach (Transform child in this.transform)
 		{
 			m_listChildrenObj.Add (child.gameObject);

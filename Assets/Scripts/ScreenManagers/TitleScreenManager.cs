@@ -28,11 +28,13 @@ public class TitleScreenManager : ScreenManager
 	{
 		UIStateManager.Instance.ActiveScreens = UIState.Reset;
 		UIStateManager.Instance.ChangeUIState (UIState.OnGameScreen);
+		GameStateManager.Instance.ChangeGameState (GameState.Start);
 	}
 	
 	public void OnClickNightMode ()
 	{
 		UIStateManager.Instance.ActiveScreens = UIState.Reset;
 		UIStateManager.Instance.ChangeUIState (UIState.OnGameScreen);
+		GameStateManager.Instance.ChangeGameState (GameState.Start);
 	}
 }

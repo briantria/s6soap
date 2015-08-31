@@ -41,7 +41,8 @@ public enum GameState
 {
 	Inactive = 0,
 	Idle     = 1 << 0, // 0x01
-	Running  = 1 << 1, // 0x02
-	GameOver = 1 << 2, // 0x04
-	Restart  = 1 << 3  // 0x08
+	Start    = 1 << 1, // 0x02
+	Running  = 1 << 2, // 0x04
+	GameOver = 1 << 3, // 0x08
+	Restart  = 1 << 4  // 0x16
 }

@@ -27,5 +27,6 @@ public class GameHudManager : ScreenManager
 	public void OnClickPause ()
 	{
 		UIStateManager.Instance.ChangeUIState (UIState.OnSettingsScreen);
+		GameStateManager.Instance.IsPaused = true;
 	}
 }

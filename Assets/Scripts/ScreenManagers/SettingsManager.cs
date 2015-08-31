@@ -25,6 +25,8 @@ public class SettingsManager : ScreenManager
 
 	public void OnClickClose ()
 	{
+		GameStateManager.Instance.IsPaused = false;
+
 		// remove settings from active screens
 		UIStateManager.Instance.ActiveScreens &= ~UIState.OnSettingsScreen;
 		UIStateManager.Instance.ChangeUIState (UIStateManager.Instance.ActiveScreens);
@@ -34,5 +36,6 @@ public class SettingsManager : ScreenManager
 	{
 		UIStateManager.Instance.ActiveScreens = UIState.Reset;
 		UIStateManager.Instance.ChangeUIState (UIState.OnTitleScreen);
+		GameStateManager.Instance.ChangeGameState (GameState.Inactive);
 	}
 }
