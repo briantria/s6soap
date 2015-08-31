@@ -27,6 +27,25 @@ public class LoadScreenManager : MonoBehaviour
 	protected void Start ()
 	{
 		StartCoroutine (InitLoading());
+		StartCoroutine ("Animate");
+	}
+
+	private IEnumerator Animate ()
+	{
+		int iMaxDotCount = 3;
+		float fAnimSpeed = 0.3f;
+		
+		while (true)
+		{
+			m_txtLoading.text = "Loading";
+			yield return new WaitForSeconds (fAnimSpeed);
+			
+			for (int idx = 0; idx < iMaxDotCount; ++idx)
+			{
+				m_txtLoading.text += ".";
+				yield return new WaitForSeconds (fAnimSpeed);
+			}
+		}
 	}
 
 	private IEnumerator InitLoading ()
@@ -41,5 +60,6 @@ public class LoadScreenManager : MonoBehaviour
 
 		m_objMainBG.SetActive (false);
 		m_txtLoading.gameObject.SetActive (false);
+		StopCoroutine ("Animate");
 	}
 }
