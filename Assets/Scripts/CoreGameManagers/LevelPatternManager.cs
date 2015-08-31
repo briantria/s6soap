@@ -10,6 +10,7 @@ using System.Collections;
 public class LevelPatternManager : MonoBehaviour 
 {
 	public static readonly int   MAX_COLUMN = 10;
+	public static readonly float COLUMN_WIDTH = 1.28f; // pixel per unit scale
 	public static readonly float LOWER_OFFSET_Y = -2.0f;
 	public static readonly float UPPER_OFFSET_Y =  2.0f;
 
@@ -61,7 +62,7 @@ public class LevelPatternManager : MonoBehaviour
 		mainPlatform.Setup ();
 		trglObstacle.Setup ();
 
-		m_fWidth = MAX_COLUMN * mainPlatform.TileWidth;
+		m_fWidth = MAX_COLUMN * COLUMN_WIDTH;
 		m_transform.position = new Vector3 (m_fWidth * p_idx, 0.0f, 0.0f);
 	}
 	

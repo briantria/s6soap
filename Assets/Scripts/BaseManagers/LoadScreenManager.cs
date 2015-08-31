@@ -50,7 +50,7 @@ public class LoadScreenManager : MonoBehaviour
 
 	private IEnumerator InitLoading ()
 	{
-		yield return new WaitForSeconds (TotalInitObjectLoadCount * 0.03f);
+		yield return new WaitForSeconds (TotalInitObjectLoadCount * 0.02f);
 
 		UIStateManager.Instance.ActiveScreens = UIState.Reset;
 		//UIStateManager.Instance.ChangeUIState (UIState.OnTitleScreen);
