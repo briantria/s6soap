@@ -15,9 +15,31 @@ public class LevelPatternManager : MonoBehaviour
 	public static readonly float UPPER_OFFSET_Y =  2.0f;
 
 	private Transform m_transform;
+	private int m_seed = 96;
 
 	private float m_fWidth = 0;
 	public  float Width {get{return m_fWidth;}}
+	
+	protected void Update ()
+	{
+		Debug.Log (GameStateManager.Instance.CurrentState.ToString());
+	
+		if (GameStateManager.Instance.IsPaused ||
+		    GameStateManager.Instance.CurrentState != GameState.Running)
+		{
+			return;
+		}
+		
+		Vector3 v3NewPos = m_transform.position;
+		v3NewPos.x -= GamePlayManager.LEVEL_SPEED * Time.deltaTime;
+		
+		if (v3NewPos.x < GameHudManager.MinScreenToWorldBounds.x - m_fWidth)
+		{
+			v3NewPos.x += m_fWidth * GamePlayManager.MAX_LEVEL_PATTERN_COUNT;
+		}
+		
+		m_transform.position = v3NewPos;
+	}
 
 	private GameObject CreateLevelPatternElement (string p_strName)
 	{
@@ -31,23 +53,26 @@ public class LevelPatternManager : MonoBehaviour
 		return obj;
 	}
 	
-	protected void Update ()
+	private void GenerateRandomMap ()
 	{
-		if (GameStateManager.Instance.IsPaused &&
-		    GameStateManager.Instance.CurrentState != GameState.Running)
-	    {
-	    	return;
-	    }
-	    
-		Vector3 v3NewPos = m_transform.position;
-		v3NewPos.x -= GamePlayManager.LEVEL_SPEED * Time.deltaTime;
+		// seed here. use System.Random
+		// ref: https://www.reddit.com/r/Unity3D/comments/2w6v69/is_randomseed_specific_to_the_class_it_is/
 		
-		if (v3NewPos.x < GameHudManager.MinScreenToWorldBounds.x - m_fWidth)
-		{
-			v3NewPos.x += m_fWidth * GamePlayManager.MAX_LEVEL_PATTERN_COUNT;
-		}
-		
-		m_transform.position = v3NewPos;
+		/*
+			plan:
+			
+			generate random map data here. then let other
+			element container access the data generated here.
+			this way, we can relate the ground data to obstacle data.
+			
+			the map generator rule:
+				1. seed = m_seed++ -> consider max seed then back to initial
+				2. randomize ground (platform tag) or ravine (obstacle tag)
+				3. if ground, randomize if obstacle will be visible. say a triangle obstacle.
+				4. if ravine, add a draggable platform.
+				5. randomize if draggable platform will have another obstacle.
+				   (consider previous platform if it already had an obstacle)
+		*/
 	}
 
 	public void Setup (int p_idx)

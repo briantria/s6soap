@@ -12,6 +12,8 @@ public class GamePlayManager : MonoBehaviour
 {
 	public static readonly int MAX_LEVEL_PATTERN_COUNT = 3;
 	public static readonly float LEVEL_SPEED = 2.0f;
+	public static readonly string TAG_OBSTACLE = "Obstacle";
+	public static readonly string TAG_PLATFORM = "Platform";
 	
 	[SerializeField] private GameObject m_mainObject;
 	
@@ -86,8 +88,13 @@ public class GamePlayManager : MonoBehaviour
 				lpm.gameObject.SetActive (true);
 			}
 			
-			GameStateManager.Instance.IsPaused = false;
-			GameStateManager.Instance.ChangeGameState (GameState.Running);
+			Invoke ("DelayRunningState", 0.02f);
 		}
+	}
+	
+	private void DelayRunningState ()
+	{
+		GameStateManager.Instance.IsPaused = false;
+		GameStateManager.Instance.ChangeGameState (GameState.Running);
 	}
 }
