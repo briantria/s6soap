@@ -9,7 +9,8 @@ using System.Collections;
 
 public class LevelPatternManager : MonoBehaviour 
 {
-	private int   m_iColumn = 10;
+	public static readonly int MAX_COLUMN = 10;
+
 	private float m_fWidth = 0;
 	public  float Width {get{return m_fWidth;}}
 
@@ -44,10 +45,12 @@ public class LevelPatternManager : MonoBehaviour
 	public void Setup ()
 	{
 		MainPlatform mainPlatform = CreateLevelPatternElement("MainPlatform").AddComponent<MainPlatform> ();
-		RectPlatform rectPlatform = CreateLevelPatternElement("RectPlatform").AddComponent<RectPlatform> ();
-		RectObstacle rectObstacle = CreateLevelPatternElement("RectObstacle").AddComponent<RectObstacle> ();
-		TrglObstacle trglObstacle = CreateLevelPatternElement("TrglObstacle").AddComponent<TrglObstacle> ();
+//		RectPlatform rectPlatform = CreateLevelPatternElement("RectPlatform").AddComponent<RectPlatform> ();
+//		RectObstacle rectObstacle = CreateLevelPatternElement("RectObstacle").AddComponent<RectObstacle> ();
+//		TrglObstacle trglObstacle = CreateLevelPatternElement("TrglObstacle").AddComponent<TrglObstacle> ();
 
-		//m_fWidth = m_iColumn * 
+		mainPlatform.Setup ();
+
+		m_fWidth = MAX_COLUMN * mainPlatform.TileWidth;
 	}
 }

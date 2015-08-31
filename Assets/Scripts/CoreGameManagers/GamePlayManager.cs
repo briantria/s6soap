@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 public class GamePlayManager : MonoBehaviour 
 {
-	private const int LEVEL_PATTERN_COUNT = 3;
+	public static readonly int LEVEL_PATTERN_COUNT = 3;
 	private List<LevelPatternManager> m_listLevelPatterns = new List<LevelPatternManager>();
 
 	protected void OnEnable ()
@@ -25,7 +25,10 @@ public class GamePlayManager : MonoBehaviour
 
 	protected void Awake ()
 	{
-		LoadScreenManager.Instance.TotalInitObjectLoadCount += LEVEL_PATTERN_COUNT * 4; // 4 level pattern elements
+		int iMultiplier  = 4;  // 4 level pattern elements
+		    iMultiplier *= LevelPatternManager.MAX_COLUMN;
+		    //iMultiplier *= 2;  // 2 max rows ?
+		LoadScreenManager.Instance.TotalInitObjectLoadCount += LEVEL_PATTERN_COUNT * iMultiplier;
 	}
 
 	protected void Start ()
@@ -41,11 +44,12 @@ public class GamePlayManager : MonoBehaviour
 			
 			Transform tLevelPattern = objLevelPattern.transform;
 			tLevelPattern.SetParent (this.transform);
-			tLevelPattern.position = Vector3.zero;
+			//tLevelPattern.position = Vector3.zero;
 			tLevelPattern.localScale = Vector3.one;
 			
 			LevelPatternManager levelPatternManager = objLevelPattern.AddComponent<LevelPatternManager> ();
 			levelPatternManager.Setup ();
+			tLevelPattern.position = new Vector3 (-5.0f + (levelPatternManager.Width * idx), -2.0f, 0.0f);
 			m_listLevelPatterns.Add (levelPatternManager);
 		}
 	}
