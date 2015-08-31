@@ -27,7 +27,6 @@ public class GamePlayManager : MonoBehaviour
 	{
 		int iMultiplier  = 4;  // 4 level pattern elements
 		    iMultiplier *= LevelPatternManager.MAX_COLUMN;
-		    //iMultiplier *= 2;  // 2 max rows ?
 		LoadScreenManager.Instance.TotalInitObjectLoadCount += LEVEL_PATTERN_COUNT * iMultiplier;
 	}
 

@@ -14,22 +14,6 @@ public class LevelPatternManager : MonoBehaviour
 	private float m_fWidth = 0;
 	public  float Width {get{return m_fWidth;}}
 
-	
-	//	[SerializeField] private Transform m_groundTiles;
-	//	private List<SpriteRenderer> m_listGroundTileSprites = new List<SpriteRenderer> ();
-	
-	//		foreach (Transform groundTile in m_groundTiles)
-	//		{
-	//			m_listGroundTileSprites.Add (groundTile.GetComponent<SpriteRenderer>());
-	//		}
-	//
-	//		float tileWidth = m_listGroundTileSprites[0].bounds.size.x * m_listGroundTileSprites[0].transform.localScale.x;
-	//		for (int idx = 0; idx < m_listGroundTileSprites.Count; ++idx)
-	//		{
-	//			m_listGroundTileSprites[idx].transform.position = new Vector3 (-5.0f + (tileWidth * idx), -2.0f, 0.0f);
-	//		}
-
-
 	private GameObject CreateLevelPatternElement (string p_strName)
 	{
 		GameObject obj = new GameObject (p_strName);
