@@ -56,9 +56,10 @@ public class LevelPatternManager : MonoBehaviour
 		MainPlatform mainPlatform = CreateLevelPatternElement("MainPlatform").AddComponent<MainPlatform> ();
 //		RectPlatform rectPlatform = CreateLevelPatternElement("RectPlatform").AddComponent<RectPlatform> ();
 //		RectObstacle rectObstacle = CreateLevelPatternElement("RectObstacle").AddComponent<RectObstacle> ();
-//		TrglObstacle trglObstacle = CreateLevelPatternElement("TrglObstacle").AddComponent<TrglObstacle> ();
+		TrglObstacle trglObstacle = CreateLevelPatternElement("TrglObstacle").AddComponent<TrglObstacle> ();
 
 		mainPlatform.Setup ();
+		trglObstacle.Setup ();
 
 		m_fWidth = MAX_COLUMN * mainPlatform.TileWidth;
 		m_transform.position = new Vector3 (m_fWidth * p_idx, 0.0f, 0.0f);

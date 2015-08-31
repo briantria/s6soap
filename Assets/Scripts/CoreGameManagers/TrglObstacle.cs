@@ -1,15 +1,16 @@
+/*
+ * Brian Tria
+ * 08/31/2015
+ * 
+ */
+
 using UnityEngine;
 using System.Collections;
 
-public class TrglObstacle : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+public class TrglObstacle : MonoBehaviour 
+{
+	public void Setup ()
+	{
+		
 	}
 }

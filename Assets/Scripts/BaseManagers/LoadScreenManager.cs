@@ -14,7 +14,7 @@ public class LoadScreenManager : MonoBehaviour
 	public  static LoadScreenManager Instance {get{return m_instance;}}
 
 	[SerializeField] private GameObject m_objMainBG;
-	[SerializeField] private Text       m_txtLoading; 
+	[SerializeField] private Text       m_txtLoading;
 
 	public int TotalInitObjectLoadCount { get; set; }
 
