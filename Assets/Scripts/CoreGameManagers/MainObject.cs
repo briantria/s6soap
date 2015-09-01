@@ -16,6 +16,10 @@ public class MainObject : MonoBehaviour
 	private Vector2     m_v2PrevVelocity;
 	private float       m_fPrevAngularVelocity;
 	
+	public float m_torque = -0.4f;
+	public float m_jumpVelocity = 7.0f;
+	public float m_jumpDelay = 0.2f;
+	
 	protected void Awake ()
 	{
 		m_rigidbody = this.GetComponent<Rigidbody2D> ();
@@ -32,10 +36,9 @@ public class MainObject : MonoBehaviour
 		}
 	
 		m_rigidbody.velocity = Vector2.zero;
-		m_rigidbody.angularVelocity = 0.0f;
-		m_rigidbody.AddForce (Vector2.one * 7, ForceMode2D.Impulse);
-		m_rigidbody.AddTorque (-0.4f, ForceMode2D.Impulse);
-
+		CancelInvoke ("DelayedJump");
+		Invoke ("DelayedJump", m_jumpDelay);
+		
 		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_MAINPLATFORM))
 		{
 			m_groundGlow.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
@@ -68,8 +71,16 @@ public class MainObject : MonoBehaviour
 		}
 	}
 
+	private void DelayedJump ()
+	{
+		float angularVel = Mathf.Clamp (m_torque - m_rigidbody.angularVelocity, m_torque, m_torque * 0.8f);
+		m_rigidbody.AddForce (Vector2.one * m_jumpVelocity, ForceMode2D.Impulse);
+		m_rigidbody.AddTorque (angularVel, ForceMode2D.Impulse);
+	}
+
 	private IEnumerator GlowFadeOut ()
 	{
+		yield return new WaitForSeconds (m_jumpDelay);
 		float fAlpha = 1.0f;
 
 		while (true)
