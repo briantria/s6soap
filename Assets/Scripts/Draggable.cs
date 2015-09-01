@@ -6,10 +6,11 @@
 
 using UnityEngine;
 using System.Collections;
-//using UnityEngine.EventSystems;
 
-public class Draggable : MonoBehaviour//, IDragHandler
+public class Draggable : MonoBehaviour
 {
+	public static GameObject CurrentDragObject = null;
+
 	public bool m_bHDrag = false;
 	public bool m_bVDrag = false;
 
@@ -34,7 +35,8 @@ public class Draggable : MonoBehaviour//, IDragHandler
 			return;
 		}
 
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) &&
+		    CurrentDragObject == null)
 		{
 			m_v3PrevCursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			m_bWillDrag = Vector2.Distance(m_v3PrevCursorPos, m_transform.position) < m_fClickRange;
@@ -42,6 +44,7 @@ public class Draggable : MonoBehaviour//, IDragHandler
 
 		if (m_bWillDrag == false) { return; }
 
+		CurrentDragObject = this.gameObject;
 		m_v3CurrCursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		Vector3 v3NewPos = m_transform.position;
 
@@ -60,6 +63,10 @@ public class Draggable : MonoBehaviour//, IDragHandler
 
 		Debug.Log ("update drag: " + v3NewPos);
 
-		m_bWillDrag = !(Input.GetMouseButtonUp(0));
+		if (Input.GetMouseButtonUp(0))
+		{
+			CurrentDragObject = null;
+			m_bWillDrag = false;
+		}
 	}
 }
