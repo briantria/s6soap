@@ -22,12 +22,12 @@ public class MainObject : MonoBehaviour
 	
 	protected void OnCollisionEnter2D (Collision2D p_collision2D)
 	{
-		if (p_collision2D.gameObject.CompareTag(GamePlayManager.TAG_OBSTACLE))
-		{
-			m_rigidbody.isKinematic = true;
-			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
-			return;
-		}
+//		if (p_collision2D.gameObject.CompareTag(GamePlayManager.TAG_OBSTACLE))
+//		{
+//			m_rigidbody.isKinematic = true;
+//			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
+//			return;
+//		}
 	
 		m_rigidbody.velocity = Vector2.zero;
 		m_rigidbody.angularVelocity = 0.0f;

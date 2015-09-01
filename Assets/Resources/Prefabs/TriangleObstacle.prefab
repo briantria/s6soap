@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &150222
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -10,8 +10,9 @@ GameObject:
   - 4: {fileID: 421420}
   - 212: {fileID: 21252838}
   - 60: {fileID: 6021062}
+  - 114: {fileID: 11486774}
   m_Layer: 0
-  m_Name: Obstacle
+  m_Name: Draggable
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,22 +33,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &189732
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 472132}
-  - 61: {fileID: 6135088}
-  m_Layer: 0
-  m_Name: DraggableObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &421420
 Transform:
   m_ObjectHideFlags: 1
@@ -58,19 +43,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 472132}
-  m_RootOrder: 0
---- !u!4 &472132
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 189732}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 421420}
   m_Father: {fileID: 497364}
   m_RootOrder: 0
 --- !u!4 &497364
@@ -83,7 +55,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 472132}
+  - {fileID: 421420}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!60 &6021062
@@ -102,19 +74,19 @@ PolygonCollider2D:
     - - {x: -.00531511195, y: .255189031}
       - {x: -.287783563, y: -.308035642}
       - {x: .275315136, y: -.310504168}
---- !u!61 &6135088
-BoxCollider2D:
+--- !u!114 &11486774
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 189732}
+  m_GameObject: {fileID: 150222}
   m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 1.27999997, y: 1.27999997}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d34b1655ef24e6e9410152a680bf79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bHDrag: 1
+  m_bVDrag: 0
 --- !u!212 &21252838
 SpriteRenderer:
   m_ObjectHideFlags: 1

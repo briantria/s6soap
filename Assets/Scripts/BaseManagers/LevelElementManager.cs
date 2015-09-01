@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 public class LevelElementManager : MonoBehaviour 
 {
-	protected List<SpriteRenderer> m_listSpriteRenderer = new List<SpriteRenderer> ();
+	protected List<GameObject> m_listElement = new List<GameObject> ();
 	
 	protected GameObject AddElement (string p_prefabPath, int p_idx, string name = "LevelElement")
 	{

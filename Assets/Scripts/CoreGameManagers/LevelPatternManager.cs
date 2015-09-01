@@ -14,6 +14,11 @@ public class LevelPatternManager : MonoBehaviour
 	public static readonly float LOWER_OFFSET_Y = -2.0f;
 	public static readonly float UPPER_OFFSET_Y =  2.0f;
 
+	MainPlatform m_mainPlatform;
+	RectPlatform m_rectPlatform;
+	RectObstacle m_rectObstacle;
+	TrglObstacle m_trglObstacle;
+
 	private Transform m_transform;
 	private int m_seed = 96;
 
@@ -35,6 +40,7 @@ public class LevelPatternManager : MonoBehaviour
 		
 		if (v3NewPos.x < GameHudManager.MinScreenToWorldBounds.x - m_fWidth)
 		{
+			m_trglObstacle.Reset ();
 			v3NewPos.x += m_fWidth * GamePlayManager.MAX_LEVEL_PATTERN_COUNT;
 		}
 		
@@ -79,13 +85,13 @@ public class LevelPatternManager : MonoBehaviour
 	{
 		m_transform = this.transform;
 	
-		MainPlatform mainPlatform = CreateLevelPatternElement("MainPlatform").AddComponent<MainPlatform> ();
-//		RectPlatform rectPlatform = CreateLevelPatternElement("RectPlatform").AddComponent<RectPlatform> ();
-//		RectObstacle rectObstacle = CreateLevelPatternElement("RectObstacle").AddComponent<RectObstacle> ();
-		TrglObstacle trglObstacle = CreateLevelPatternElement("TrglObstacle").AddComponent<TrglObstacle> ();
+		m_mainPlatform = CreateLevelPatternElement("MainPlatform").AddComponent<MainPlatform> ();
+		//m_rectPlatform = CreateLevelPatternElement("RectPlatform").AddComponent<RectPlatform> ();
+		//m_rectObstacle = CreateLevelPatternElement("RectObstacle").AddComponent<RectObstacle> ();
+		m_trglObstacle = CreateLevelPatternElement("TrglObstacle").AddComponent<TrglObstacle> ();
 
-		mainPlatform.Setup ();
-		trglObstacle.Setup ();
+		m_mainPlatform.Setup ();
+		m_trglObstacle.Setup ();
 
 		m_fWidth = MAX_COLUMN * COLUMN_WIDTH;
 		m_transform.position = new Vector3 (m_fWidth * p_idx, 0.0f, 0.0f);

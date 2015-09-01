@@ -20,10 +20,11 @@ public class MainPlatform : LevelElementManager
 		
 		for (int idx = 0; idx < LevelPatternManager.MAX_COLUMN; ++idx)
 		{
-			SpriteRenderer sr = AddElement(PREFAB_SOURCE_PATH, idx).GetComponent<SpriteRenderer> ();
+			GameObject obj = AddElement(PREFAB_SOURCE_PATH, idx);
+			SpriteRenderer sr = obj.GetComponent<SpriteRenderer> ();
 			spriteScale.x = LevelPatternManager.COLUMN_WIDTH / sr.bounds.size.x;
 			sr.transform.localScale = spriteScale;
-			m_listSpriteRenderer.Add (sr);
+			m_listElement.Add (obj);
 		}
 	}
 }

@@ -16,18 +16,20 @@ public class TrglObstacle : LevelElementManager
 	{	
 		this.transform.localPosition = new Vector3 (0.0f, 0.4f, 0.0f);
 	
-//		Debug.Log("seed: " + Random.seed);
-//		string strRandValues = "";
-	
 		for (int idx = 0; idx < LevelPatternManager.MAX_COLUMN; ++idx)
 		{
 			GameObject obj = AddElement(PREFAB_SOURCE_PATH, idx);
 			float randValue = Random.value;
-//			strRandValues += randValue.ToString("F2") + " ";
 			obj.SetActive (randValue < 0.3f);
-			m_listSpriteRenderer.Add (obj.GetComponent<SpriteRenderer>());
+			m_listElement.Add (obj);
 		}
-		
-//		Debug.Log(strRandValues);
+	}
+
+	public void Reset ()
+	{
+		foreach (GameObject obj in m_listElement)
+		{
+			obj.transform.GetChild(0).transform.localPosition = Vector3.zero;
+		}
 	}
 }
