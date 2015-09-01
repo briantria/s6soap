@@ -24,19 +24,19 @@ public class MainObject : MonoBehaviour
 	
 	protected void OnCollisionEnter2D (Collision2D p_collision2D)
 	{
-//		if (p_collision2D.gameObject.CompareTag(GamePlayManager.TAG_OBSTACLE))
-//		{
-//			m_rigidbody.isKinematic = true;
-//			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
-//			return;
-//		}
+		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_OBSTACLE))
+		{
+			m_rigidbody.isKinematic = true;
+			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
+			return;
+		}
 	
 		m_rigidbody.velocity = Vector2.zero;
 		m_rigidbody.angularVelocity = 0.0f;
 		m_rigidbody.AddForce (Vector2.one * 7, ForceMode2D.Impulse);
 		m_rigidbody.AddTorque (-0.4f, ForceMode2D.Impulse);
 
-		if (p_collision2D.gameObject.CompareTag(GamePlayManager.TAG_MAINPLATFORM))
+		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_MAINPLATFORM))
 		{
 			m_groundGlow.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 			StopCoroutine ("GlowFadeOut");

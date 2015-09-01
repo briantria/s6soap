@@ -1732,6 +1732,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1670863780}
   - 114: {fileID: 1670863781}
+  - 114: {fileID: 1670863782}
   m_Layer: 0
   m_Name: GamePlay
   m_TagString: Untagged
@@ -1765,6 +1766,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mainObject: {fileID: 1063321539}
+--- !u!114 &1670863782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1670863779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 918c6200cbaa84972b58deb18426685a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1762838525
 GameObject:
   m_ObjectHideFlags: 0

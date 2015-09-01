@@ -12,8 +12,6 @@ public class GamePlayManager : MonoBehaviour
 {
 	public static readonly int MAX_LEVEL_PATTERN_COUNT = 3;
 	public static readonly float LEVEL_SPEED = 2.0f;
-	public static readonly string TAG_OBSTACLE = "Obstacle";
-	public static readonly string TAG_MAINPLATFORM = "MainPlatform";
 	
 	[SerializeField] private GameObject m_mainObject;
 	
