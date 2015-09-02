@@ -10,9 +10,9 @@ using System.Collections;
 public class MainObject : MonoBehaviour
 {
 	[SerializeField] private SpriteRenderer m_groundGlow; 
-	[SerializeField] private float m_torque = -0.4f;
-	[SerializeField] private float m_jumpVelocity = 7.0f;
-	[SerializeField] private float m_jumpDelay = 0.2f;
+	[SerializeField] private float m_torque;
+	[SerializeField] private float m_jumpVelocity;
+	[SerializeField] private float m_jumpDelay;
 
 	private bool    m_bDidPause;
 	private Vector2 m_v2PrevVelocity;
