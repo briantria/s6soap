@@ -11,11 +11,16 @@ using System.Collections.Generic;
 public class GamePlayManager : MonoBehaviour 
 {
 	public static readonly int MAX_LEVEL_PATTERN_COUNT = 3;
-	public static readonly float LEVEL_SPEED = 3.0f;
+	public static readonly float LEVEL_SPEED = 2.0f;
+	public static readonly float LEVEL_TOP_SPEED = 5.0f;
 	
 	[SerializeField] private GameObject m_mainObject;
-	
 	private List<LevelPatternManager> m_listLevelPatterns = new List<LevelPatternManager>();
+
+	private static GamePlayManager m_instance = null;
+	public static GamePlayManager Instance {get{return m_instance;}}
+
+	public float SpeedMultiplier { get; set; }
 
 	protected void OnEnable ()
 	{
@@ -31,6 +36,8 @@ public class GamePlayManager : MonoBehaviour
 
 	protected void Awake ()
 	{
+		m_instance = this;
+		SpeedMultiplier = 1.0f;
 		int iMultiplier  = 4;  // 4 level pattern elements
 		    iMultiplier *= LevelPatternManager.MAX_COLUMN;
 		LoadScreenManager.Instance.TotalInitObjectLoadCount += MAX_LEVEL_PATTERN_COUNT * iMultiplier;
@@ -39,6 +46,20 @@ public class GamePlayManager : MonoBehaviour
 	protected void Start ()
 	{
 		SetupLevelPatterns ();
+	}
+
+	protected void Update ()
+	{
+		if (GameStateManager.Instance.IsPaused ||
+		    GameStateManager.Instance.CurrentState != GameState.Running)
+		{
+			return;
+		}
+
+		if (LEVEL_SPEED * SpeedMultiplier < LEVEL_TOP_SPEED)
+		{
+			SpeedMultiplier += 0.002f;
+		}
 	}
 
 	private void SetupLevelPatterns ()
@@ -65,7 +86,7 @@ public class GamePlayManager : MonoBehaviour
 		
 		p_uiState  &= (UIState.OnGameScreen | UIState.OnSettingsScreen | UIState.OnResultScreen);
 		bShowChild &= p_uiState > 0;
-		m_mainObject.SetActive (bShowChild);
+		m_mainObject.SetActive (false);//(bShowChild);
 	}
 
 	private void ChangeGameState (GameState p_gameState)
@@ -85,7 +106,8 @@ public class GamePlayManager : MonoBehaviour
 			{
 				lpm.gameObject.SetActive (true);
 			}
-			
+
+			SpeedMultiplier = 1.0f;
 			Invoke ("DelayRunningState", 0.02f);
 		}
 	}

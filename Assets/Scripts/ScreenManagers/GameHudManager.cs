@@ -26,15 +26,20 @@ public class GameHudManager : ScreenManager
 
 	override protected void ChangeUIState (UIState p_uiState)
 	{
-		// first, be sure we're not previously on title screen
+		// be sure we're not previously on title screen
 		bool bShowChild = (UIState.OnTitleScreen & UIStateManager.Instance.ActiveScreens) <= 0;
-
 		p_uiState  &= (UIState.OnGameScreen | UIState.OnSettingsScreen | UIState.OnResultScreen);
 		bShowChild &= p_uiState > 0;
 		
 		foreach (GameObject childObj in m_listChildrenObj)
 		{
 			childObj.SetActive (bShowChild);
+		}
+
+		// reset camera
+		if (p_uiState == UIState.OnTitleScreen)
+		{
+			Camera.main.orthographicSize = DEFAULT_ORTHOSIZE;
 		}
 	}
 

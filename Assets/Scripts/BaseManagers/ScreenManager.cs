@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 public class ScreenManager : MonoBehaviour
 {
+	public static readonly float DEFAULT_ORTHOSIZE = 3.2f;
 	protected List<GameObject> m_listChildrenObj = new List<GameObject>();
 	
 	virtual protected void OnEnable ()

@@ -31,9 +31,9 @@ public class LevelPatternManager : MonoBehaviour
 		{
 			return;
 		}
-		
+
 		Vector3 v3NewPos = m_transform.position;
-		v3NewPos.x -= GamePlayManager.LEVEL_SPEED * Time.deltaTime;
+		v3NewPos.x -= GamePlayManager.LEVEL_SPEED * GamePlayManager.Instance.SpeedMultiplier * Time.deltaTime;
 		
 		if (v3NewPos.x < GameHudManager.MinScreenToWorldBounds.x - m_fWidth)
 		{
@@ -61,6 +61,7 @@ public class LevelPatternManager : MonoBehaviour
 		return obj;
 	}
 
+	// init
 	public void Setup (int p_idx)
 	{
 		m_transform = this.transform;
