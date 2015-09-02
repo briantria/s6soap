@@ -15,6 +15,7 @@ public class GamePlayManager : MonoBehaviour
 	public static readonly float LEVEL_TOP_SPEED = 5.0f;
 	
 	[SerializeField] private GameObject m_mainObject;
+	private Camera m_mainCamera;
 	private List<LevelPatternManager> m_listLevelPatterns = new List<LevelPatternManager>();
 
 	private static GamePlayManager m_instance = null;
@@ -37,7 +38,9 @@ public class GamePlayManager : MonoBehaviour
 	protected void Awake ()
 	{
 		m_instance = this;
+		m_mainCamera = Camera.main;
 		SpeedMultiplier = 1.0f;
+
 		int iMultiplier  = 4;  // 4 level pattern elements
 		    iMultiplier *= LevelPatternManager.MAX_COLUMN;
 		LoadScreenManager.Instance.TotalInitObjectLoadCount += MAX_LEVEL_PATTERN_COUNT * iMultiplier;
@@ -58,7 +61,8 @@ public class GamePlayManager : MonoBehaviour
 
 		if (LEVEL_SPEED * SpeedMultiplier < LEVEL_TOP_SPEED)
 		{
-			SpeedMultiplier += 0.002f;
+			SpeedMultiplier += 0.05f * Time.deltaTime;
+			m_mainCamera.orthographicSize += 0.08f * Time.deltaTime;
 		}
 	}
 
