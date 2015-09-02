@@ -74,7 +74,7 @@ public class MapGenerator : MonoBehaviour
 
 		if (m_fObstacleRarity < 0.8f)
 		{
-			m_fObstacleRarity += 0.002f;
+			m_fObstacleRarity += 0.008f;
 		}
 
 		//Debug.Log ("Obstacle rarity: " + m_fObstacleRarity);
@@ -144,18 +144,24 @@ public class MapGenerator : MonoBehaviour
 	{
 		m_listDraggableGroundCode.Clear ();
 
-		foreach (int groundIdx in m_listGroundCode)
+		for (int idx = 0; idx < m_listGroundCode.Count; ++idx)
 		{
-			if (groundIdx > 0)
+			// avoid ground
+			if (m_listGroundCode[idx] > 0)
 			{
-				// if main ground is present, dont add draggable ground
 				m_iPrevDraggableGroundCode = -1;
+			}
+			// avoid consecutive draggable ground
+			else if ((idx > 0 && m_listDraggableGroundCode[idx-1] > 0) ||
+			         (idx == 0 && m_iPrevDraggableGroundCode > 0))
+			{
+				m_listDraggableGroundCode.Add (-1);
+				continue;
 			}
 			else
 			{
 				int nextCode = m_random.Next (m_iPrevDraggableGroundCode - 1, m_iPrevDraggableGroundCode + 3);
 				nextCode = Mathf.Max (1, nextCode);
-				
 				m_iPrevDraggableGroundCode = nextCode;
 			}
 

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 public class GamePlayManager : MonoBehaviour 
 {
 	public static readonly int MAX_LEVEL_PATTERN_COUNT = 3;
-	public static readonly float LEVEL_SPEED = 2.0f;
+	public static readonly float LEVEL_SPEED = 3.0f;
 	
 	[SerializeField] private GameObject m_mainObject;
 	
