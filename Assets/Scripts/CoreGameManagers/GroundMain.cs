@@ -8,9 +8,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class MainPlatform : LevelElementManager 
+public class GroundMain : LevelElementManager 
 {
-	private const string PREFAB_SOURCE_PATH = "Prefabs/MainPlatformTile";
+	private const string PREFAB_SOURCE_PATH = "Prefabs/GroundMainTile";
 	private const string GROUND_EDGE_SPRITE_PATH = "Images/Ground/ground_edge";
 	private const string GROUND_MAIN_SPRITE_PATH = "Images/Ground/ground_main";
 
@@ -21,7 +21,7 @@ public class MainPlatform : LevelElementManager
 		3 -> left edge
 	 */
 
-	private void FetchGroundCode (SpriteRenderer p_sr, int p_idx)
+	private void ApplyMapCode (SpriteRenderer p_sr, int p_idx)
 	{
 		Vector3 spriteScale = Vector3.one;
 		p_sr.gameObject.SetActive (false);
@@ -52,16 +52,16 @@ public class MainPlatform : LevelElementManager
 		{
 			GameObject obj = AddElement(PREFAB_SOURCE_PATH, idx);
 			SpriteRenderer sr = obj.GetComponent<SpriteRenderer> ();
-			FetchGroundCode (sr, idx);
+			ApplyMapCode (sr, idx);
 			m_listElement.Add (obj);
 		}
 	}
 
-	public void GenerateNextMap ()
+	public void GenerateNextPattern ()
 	{
 		for (int idx = 0; idx < LevelPatternManager.MAX_COLUMN; ++idx)
 		{
-			FetchGroundCode (m_listElement[idx].GetComponent<SpriteRenderer>(), idx);
+			ApplyMapCode (m_listElement[idx].GetComponent<SpriteRenderer>(), idx);
 		}
 	}
 }

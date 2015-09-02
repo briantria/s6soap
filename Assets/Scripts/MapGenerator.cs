@@ -29,8 +29,9 @@ public class MapGenerator : MonoBehaviour
 	private List<int> m_listRectObstacleCode = new List<int> ();
 	public List<int> RectObstacleCode {get{return m_listRectObstacleCode;}}
 	#endregion
-
-	private int m_iPrevGroundCode = 1;
+	
+	private int m_iPrevGroundCode;
+	private int m_iPrevDraggableGroundCode;
 	private int m_seed;
 	System.Random m_random;
 
@@ -38,7 +39,15 @@ public class MapGenerator : MonoBehaviour
 	{
 		m_instance = this;
 		m_seed = "adrimsim".GetHashCode();
+		Reset ();
+		//m_random = new System.Random (m_seed);
+	}
+
+	public void Reset ()
+	{
 		m_random = new System.Random (m_seed);
+		m_iPrevGroundCode = 1;
+		m_iPrevDraggableGroundCode = -1;
 	}
 
 	public void GenerateRandomMap ()
@@ -49,7 +58,7 @@ public class MapGenerator : MonoBehaviour
 		/*
 			plan:
 			
-			generate random map data here. then let other
+			generate random map code here. then let other
 			element container access the data generated here.
 			this way, we can relate the ground data to obstacle data.
 			
@@ -61,7 +70,10 @@ public class MapGenerator : MonoBehaviour
 				  (consider previous platform if it already had an obstacle)
 		*/
 
+		// TODO: percentage change overtime to increase game difficulty
 		CreateGround ();
+		AddDraggableGround ();
+		AddObstacles ();
 	}
 
 	private void CreateGround ()
@@ -73,8 +85,9 @@ public class MapGenerator : MonoBehaviour
 			3 -> left edge
 		 */
 
-		// start with random ground
 		m_listGroundCode.Clear ();
+
+		// start with random ground
 		for (int idx = 0; idx < LevelPatternManager.MAX_COLUMN; ++idx)
 		{
 			bool bGround = m_random.NextDouble () > 0.3f;
@@ -117,5 +130,33 @@ public class MapGenerator : MonoBehaviour
 
 		// set m_iPrevGroundCode with this last ground element
 		m_iPrevGroundCode = m_listGroundCode [m_listGroundCode.Count - 1];
+	}
+
+	private void AddDraggableGround ()
+	{
+		m_listDraggableGroundCode.Clear ();
+
+		foreach (int groundIdx in m_listGroundCode)
+		{
+			if (groundIdx > 0)
+			{
+				// if main ground is present, dont add draggable ground
+				m_iPrevDraggableGroundCode = -1;
+			}
+			else
+			{
+				int nextCode = m_random.Next (m_iPrevDraggableGroundCode - 1, m_iPrevDraggableGroundCode + 3);
+				nextCode = Mathf.Max (1, nextCode);
+				
+				m_iPrevDraggableGroundCode = nextCode;
+			}
+
+			m_listDraggableGroundCode.Add (m_iPrevDraggableGroundCode);
+		}
+	}
+
+	private void AddObstacles ()
+	{
+
 	}
 }

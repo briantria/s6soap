@@ -10,12 +10,12 @@ using System.Collections;
 public class LevelPatternManager : MonoBehaviour 
 {
 	public static readonly int   MAX_COLUMN = 10;
-	public static readonly float COLUMN_WIDTH = 1.28f; // pixel per unit scale
+	public static readonly float COLUMN_WIDTH = 128f * Constants.PPU_MULTIPLIER;
 	public static readonly float LOWER_OFFSET_Y = -2.0f;
 	public static readonly float UPPER_OFFSET_Y =  2.0f;
 
-	MainPlatform m_mainPlatform;
-	RectPlatform m_rectPlatform;
+	GroundMain m_groundMain;
+	GroundDraggable m_groundDraggable;
 	RectObstacle m_rectObstacle;
 	TrglObstacle m_trglObstacle;
 
@@ -38,8 +38,9 @@ public class LevelPatternManager : MonoBehaviour
 		if (v3NewPos.x < GameHudManager.MinScreenToWorldBounds.x - m_fWidth)
 		{
 			MapGenerator.Instance.GenerateRandomMap ();
-			m_mainPlatform.GenerateNextMap ();
-			m_trglObstacle.Reset ();
+			m_groundMain.GenerateNextPattern ();
+			m_groundDraggable.GenerateNextPattern ();
+			//m_trglObstacle.GenerateNextPattern ();
 			v3NewPos.x += m_fWidth * GamePlayManager.MAX_LEVEL_PATTERN_COUNT;
 		}
 		
@@ -62,14 +63,15 @@ public class LevelPatternManager : MonoBehaviour
 	{
 		m_transform = this.transform;
 	
-		m_mainPlatform = CreateLevelPatternElement("MainPlatform").AddComponent<MainPlatform> ();
-		//m_rectPlatform = CreateLevelPatternElement("RectPlatform").AddComponent<RectPlatform> ();
+		m_groundMain = CreateLevelPatternElement("GroundMain").AddComponent<GroundMain> ();
+		m_groundDraggable = CreateLevelPatternElement("GroundDraggable").AddComponent<GroundDraggable> ();
 		//m_rectObstacle = CreateLevelPatternElement("RectObstacle").AddComponent<RectObstacle> ();
-		m_trglObstacle = CreateLevelPatternElement("TrglObstacle").AddComponent<TrglObstacle> ();
+		//m_trglObstacle = CreateLevelPatternElement("TrglObstacle").AddComponent<TrglObstacle> ();
 
 		MapGenerator.Instance.GenerateRandomMap ();
-		m_mainPlatform.Setup ();
-		m_trglObstacle.Setup ();
+		m_groundMain.Setup ();
+		m_groundDraggable.Setup ();
+		//m_trglObstacle.Setup ();
 
 		m_fWidth = MAX_COLUMN * COLUMN_WIDTH;
 		m_transform.position = new Vector3 (m_fWidth * p_idx, 0.0f, 0.0f);

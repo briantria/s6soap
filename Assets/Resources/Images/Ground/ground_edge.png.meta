@@ -49,7 +49,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites: []
-  spritePackingTag: ground
+  spritePackingTag: gameobject
   userData: 
   assetBundleName: 
   assetBundleVariant: 

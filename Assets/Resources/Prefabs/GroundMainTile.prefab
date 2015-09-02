@@ -11,8 +11,8 @@ GameObject:
   - 212: {fileID: 21240492}
   - 61: {fileID: 6151950}
   m_Layer: 0
-  m_Name: MainPlatformTile
-  m_TagString: Platform
+  m_Name: GroundMainTile
+  m_TagString: MainPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_TagString
-      value: Platform
+      value: MainPlatform
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

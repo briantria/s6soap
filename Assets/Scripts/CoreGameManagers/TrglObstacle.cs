@@ -25,7 +25,7 @@ public class TrglObstacle : LevelElementManager
 		}
 	}
 
-	public void Reset ()
+	public void GenerateNextPattern ()
 	{
 		foreach (GameObject obj in m_listElement)
 		{

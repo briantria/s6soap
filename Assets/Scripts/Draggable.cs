@@ -61,7 +61,7 @@ public class Draggable : MonoBehaviour
 		m_transform.position = v3NewPos;
 		m_v3PrevCursorPos = m_v3CurrCursorPos;
 
-		Debug.Log ("update drag: " + v3NewPos);
+		//Debug.Log ("update drag: " + v3NewPos);
 
 		if (Input.GetMouseButtonUp(0))
 		{
