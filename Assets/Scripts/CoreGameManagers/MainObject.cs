@@ -112,6 +112,7 @@ public class MainObject : MonoBehaviour
 		Vector3 pos   = this.transform.position;
 				pos.y = 2;
 		this.transform.position = pos;
+		m_rigidbody.Sleep ();
 		m_rigidbody.velocity = Vector2.zero;
 		m_rigidbody.angularVelocity = 0.0f;
 	}

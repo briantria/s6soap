@@ -20,6 +20,7 @@ public class LevelPatternManager : MonoBehaviour
 	TrglObstacle m_trglObstacle;
 
 	private Transform m_transform;
+	private int m_id;
 
 	private float m_fWidth = 0;
 	public  float Width {get{return m_fWidth;}}
@@ -64,6 +65,7 @@ public class LevelPatternManager : MonoBehaviour
 	// init
 	public void Setup (int p_idx)
 	{
+		m_id = p_idx;
 		m_transform = this.transform;
 	
 		m_groundMain = CreateLevelPatternElement("GroundMain").AddComponent<GroundMain> ();
@@ -79,6 +81,19 @@ public class LevelPatternManager : MonoBehaviour
 
 		m_fWidth = MAX_COLUMN * COLUMN_WIDTH;
 		m_transform.position = new Vector3 (m_fWidth * p_idx, 0.0f, 0.0f);
+		OffsetPosition (new Vector3 (-5.0f, LevelPatternManager.LOWER_OFFSET_Y, 0.0f));
+	}
+
+	public void Reset ()
+	{
+		MapGenerator.Instance.GenerateRandomMap ();
+		
+		m_groundMain.GenerateNextPattern ();
+		m_groundDraggable.GenerateNextPattern ();
+		m_trglObstacle.GenerateNextPattern ();
+
+		m_transform.position = new Vector3 (m_fWidth * m_id, 0.0f, 0.0f);
+		OffsetPosition (new Vector3 (-5.0f, LevelPatternManager.LOWER_OFFSET_Y, 0.0f));
 	}
 	
 	public void OffsetPosition (Vector3 p_v3Offset)
