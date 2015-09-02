@@ -24,7 +24,7 @@ public class Draggable : MonoBehaviour
 	{
 		m_bWillDrag = false;
 		m_transform = this.transform;
-		m_fClickRange = this.GetComponent<SpriteRenderer>().bounds.size.x * this.transform.localScale.x * 0.5f;
+		m_fClickRange = this.GetComponent<SpriteRenderer>().bounds.size.x * this.transform.localScale.x;// * 0.5f;
 	}
 
 	protected void Update ()
@@ -39,7 +39,7 @@ public class Draggable : MonoBehaviour
 		    CurrentDragObject == null)
 		{
 			m_v3PrevCursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			m_bWillDrag = Vector2.Distance(m_v3PrevCursorPos, m_transform.position) < m_fClickRange;
+			m_bWillDrag = Vector2.Distance (m_v3PrevCursorPos, m_transform.position) < m_fClickRange;
 		}
 
 		if (m_bWillDrag == false) { return; }
