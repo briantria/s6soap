@@ -40,6 +40,7 @@ public class GroundDraggable : LevelElementManager
 	{
 		for (int idx = m_listElement.Count - 1; idx >= 0; --idx)
 		{
+			m_listElement[idx].transform.GetChild(0).transform.localPosition = Vector3.zero;
 			ApplyMapCode (m_listElement[idx], idx);
 		}
 	}
