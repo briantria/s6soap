@@ -32,8 +32,16 @@ public class SettingsManager : ScreenManager
 		UIStateManager.Instance.ChangeUIState (UIStateManager.Instance.ActiveScreens);
 	}
 
+	public void OnClickRestart ()
+	{
+		OnClickClose ();
+		Camera.main.orthographicSize = ScreenManager.DEFAULT_ORTHOSIZE;
+		GameStateManager.Instance.ChangeGameState (GameState.Restart);
+	}
+
 	public void OnClickQuit ()
 	{
+		Camera.main.orthographicSize = ScreenManager.DEFAULT_ORTHOSIZE;
 		UIStateManager.Instance.ActiveScreens = UIState.Reset;
 		UIStateManager.Instance.ChangeUIState (UIState.OnTitleScreen);
 		GameStateManager.Instance.ChangeGameState (GameState.Inactive);

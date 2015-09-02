@@ -10,16 +10,17 @@ using System.Collections;
 public class MainObject : MonoBehaviour
 {
 	[SerializeField] private SpriteRenderer m_groundGlow; 
+	[SerializeField] private float m_torque = -0.4f;
+	[SerializeField] private float m_jumpVelocity = 7.0f;
+	[SerializeField] private float m_jumpDelay = 0.2f;
 
+	private bool    m_bDidPause;
+	private Vector2 m_v2PrevVelocity;
+	private float   m_fPrevAngularVelocity;
+	
 	private Rigidbody2D m_rigidbody;
-	private bool        m_bDidPause;
-	private Vector2     m_v2PrevVelocity;
-	private float       m_fPrevAngularVelocity;
-	
-	public float m_torque = -0.4f;
-	public float m_jumpVelocity = 7.0f;
-	public float m_jumpDelay = 0.2f;
-	
+	public  Rigidbody2D RBody2D {get{return m_rigidbody;}}
+
 	protected void Awake ()
 	{
 		m_rigidbody = this.GetComponent<Rigidbody2D> ();
@@ -104,5 +105,14 @@ public class MainObject : MonoBehaviour
 				break;
 			}
 		}
+	}
+
+	public void Reset ()
+	{
+		Vector3 pos   = this.transform.position;
+				pos.y = 2;
+		this.transform.position = pos;
+		m_rigidbody.velocity = Vector2.zero;
+		m_rigidbody.angularVelocity = 0.0f;
 	}
 }

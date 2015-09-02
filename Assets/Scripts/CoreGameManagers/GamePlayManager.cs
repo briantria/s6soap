@@ -14,7 +14,7 @@ public class GamePlayManager : MonoBehaviour
 	public static readonly float LEVEL_SPEED = 2.0f;
 	public static readonly float LEVEL_TOP_SPEED = 5.0f;
 	
-	[SerializeField] private GameObject m_mainObject;
+	[SerializeField] private MainObject m_mainObject;
 	private Camera m_mainCamera;
 	private List<LevelPatternManager> m_listLevelPatterns = new List<LevelPatternManager>();
 
@@ -26,13 +26,11 @@ public class GamePlayManager : MonoBehaviour
 	protected void OnEnable ()
 	{
 		GameStateManager.changeGameState += ChangeGameState;
-		UIStateManager.changeUIState += ChangeUIState;
 	}
 
 	protected void OnDisable ()
 	{
 		GameStateManager.changeGameState -= ChangeGameState;
-		UIStateManager.changeUIState -= ChangeUIState;
 	}
 
 	protected void Awake ()
@@ -83,38 +81,43 @@ public class GamePlayManager : MonoBehaviour
 		}
 	}
 
-	private void ChangeUIState (UIState p_uiState)
-	{
-		// first, be sure we're not previously on title screen
-		bool bShowChild = (UIState.OnTitleScreen & UIStateManager.Instance.ActiveScreens) <= 0;
-		
-		p_uiState  &= (UIState.OnGameScreen | UIState.OnSettingsScreen | UIState.OnResultScreen);
-		bShowChild &= p_uiState > 0;
-		m_mainObject.SetActive (false);//(bShowChild);
-	}
-
 	private void ChangeGameState (GameState p_gameState)
 	{
-		if (p_gameState == GameState.Inactive)
+		switch (p_gameState){
+		case GameState.Start:
 		{
+			m_mainObject.gameObject.SetActive (true);
+			m_mainObject.RBody2D.isKinematic = false;
+			m_mainObject.Reset ();
+
+			foreach (LevelPatternManager lpm in m_listLevelPatterns)
+			{
+//				lpm.res
+				lpm.gameObject.SetActive (true);
+			}
+
+			SpeedMultiplier = 1.0f;
+			Invoke ("DelayRunningState", 0.02f);
+
+			break;
+		}
+		case GameState.Inactive:
+		{
+			m_mainObject.Reset ();
+			m_mainObject.RBody2D.isKinematic = true;
+			m_mainObject.gameObject.SetActive (false);
+
 			foreach (LevelPatternManager lpm in m_listLevelPatterns)
 			{
 				lpm.gameObject.SetActive (false);
 			}
 
-			return;
+			break;
 		}
-		else if (p_gameState == GameState.Start)
+		default: // Running
 		{
-			foreach (LevelPatternManager lpm in m_listLevelPatterns)
-			{
-				lpm.gameObject.SetActive (true);
-			}
-
-			SpeedMultiplier = 1.0f;
-			m_mainCamera.orthographicSize = ScreenManager.DEFAULT_ORTHOSIZE;
-			Invoke ("DelayRunningState", 0.02f);
-		}
+			break;
+		}}
 	}
 	
 	private void DelayRunningState ()
