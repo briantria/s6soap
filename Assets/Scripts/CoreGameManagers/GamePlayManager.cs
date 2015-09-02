@@ -112,6 +112,7 @@ public class GamePlayManager : MonoBehaviour
 			}
 
 			SpeedMultiplier = 1.0f;
+			m_mainCamera.orthographicSize = ScreenManager.DEFAULT_ORTHOSIZE;
 			Invoke ("DelayRunningState", 0.02f);
 		}
 	}
