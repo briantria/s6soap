@@ -38,9 +38,23 @@ public class GroundDraggable : LevelElementManager
 
 	public void GenerateNextPattern ()
 	{
+		int iDraggableInstanceID = this.GetInstanceID ();
+		
+		if (Draggable.CurrentDragObject != null)
+		{
+			iDraggableInstanceID = Draggable.CurrentDragObject.transform.GetInstanceID ();
+		}
+
 		for (int idx = m_listElement.Count - 1; idx >= 0; --idx)
 		{
-			m_listElement[idx].transform.GetChild(0).transform.localPosition = Vector3.zero;
+			Transform draggable = m_listElement[idx].transform.GetChild(0).transform;
+			
+			if (draggable.GetInstanceID() == iDraggableInstanceID)
+			{
+				Draggable.CurrentDragObject = null;
+			}
+
+			draggable.localPosition = Vector3.zero;
 			ApplyMapCode (m_listElement[idx], idx);
 		}
 	}

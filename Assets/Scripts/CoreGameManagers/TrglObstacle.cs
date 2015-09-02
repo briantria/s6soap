@@ -26,9 +26,23 @@ public class TrglObstacle : LevelElementManager
 
 	public void GenerateNextPattern ()
 	{
+		int iDraggableInstanceID = this.GetInstanceID ();
+
+		if (Draggable.CurrentDragObject != null)
+		{
+			iDraggableInstanceID = Draggable.CurrentDragObject.transform.GetInstanceID ();
+		}
+
 		for (int idx = 0; idx < LevelPatternManager.MAX_COLUMN; ++idx)
 		{
-			m_listElement[idx].transform.GetChild(0).transform.localPosition = Vector3.zero;
+			Transform draggable = m_listElement[idx].transform.GetChild(0).transform;
+
+			if (draggable.GetInstanceID() == iDraggableInstanceID)
+			{
+				Draggable.CurrentDragObject = null;
+			}
+
+			draggable.localPosition = Vector3.zero;
 			m_listElement[idx].SetActive (MapGenerator.Instance.GroundedObjectCode[idx] == 0);
 		}
 	}
