@@ -23,24 +23,27 @@ public class MapGenerator : MonoBehaviour
 	private List<int> m_listDraggableGroundCode = new List<int> ();
 	public List<int> DraggableGroundCode {get{return m_listDraggableGroundCode;}}
 	
-	private List<int> m_listTriangleObstacleCode = new List<int> ();
-	public List<int> TriangleObstacleCode {get{return m_listTriangleObstacleCode;}}
+	private List<int> m_listGroundedObjectCode = new List<int> ();
+	/// <summary>
+	/// The list of object-codes that determines which objects should be visible on the main platform.
+	/// </summary>
+	public List<int> GroundedObjectCode {get{return m_listGroundedObjectCode;}}
 
-	private List<int> m_listRectObstacleCode = new List<int> ();
-	public List<int> RectObstacleCode {get{return m_listRectObstacleCode;}}
+//	private List<int> m_listRectObstacleCode = new List<int> ();
+//	public List<int> RectObstacleCode {get{return m_listRectObstacleCode;}}
 	#endregion
-	
+
+	private float m_fObstacleRarity;
 	private int m_iPrevGroundCode;
 	private int m_iPrevDraggableGroundCode;
 	private int m_seed;
-	System.Random m_random;
+	private System.Random m_random;
 
 	protected void Awake ()
 	{
 		m_instance = this;
-		m_seed = "adrimsim".GetHashCode();
+		m_seed = "angelyka".GetHashCode();
 		Reset ();
-		//m_random = new System.Random (m_seed);
 	}
 
 	public void Reset ()
@@ -48,6 +51,7 @@ public class MapGenerator : MonoBehaviour
 		m_random = new System.Random (m_seed);
 		m_iPrevGroundCode = 1;
 		m_iPrevDraggableGroundCode = -1;
+		m_fObstacleRarity = 0.15f;
 	}
 
 	public void GenerateRandomMap ()
@@ -56,8 +60,6 @@ public class MapGenerator : MonoBehaviour
 		// ref: https://www.reddit.com/r/Unity3D/comments/2w6v69/is_randomseed_specific_to_the_class_it_is/
 		
 		/*
-			plan:
-			
 			generate random map code here. then let other
 			element container access the data generated here.
 			this way, we can relate the ground data to obstacle data.
@@ -70,10 +72,16 @@ public class MapGenerator : MonoBehaviour
 				  (consider previous platform if it already had an obstacle)
 		*/
 
-		// TODO: percentage change overtime to increase game difficulty
+		if (m_fObstacleRarity < 0.8f)
+		{
+			m_fObstacleRarity += 0.002f;
+		}
+
+		//Debug.Log ("Obstacle rarity: " + m_fObstacleRarity);
+
 		CreateGround ();
 		AddDraggableGround ();
-		AddObstacles ();
+		AddGroundedObjects ();
 	}
 
 	private void CreateGround ()
@@ -155,8 +163,27 @@ public class MapGenerator : MonoBehaviour
 		}
 	}
 
-	private void AddObstacles ()
+	private void AddGroundedObjects ()
 	{
+		/*
+			-1 : none
+			 0 : triangle obstacle
+			 1 : booster / spring
+		 */
 
+		m_listGroundedObjectCode.Clear ();
+
+		foreach (int groundIdx in m_listGroundCode)
+		{
+			int iCode = -1;
+			
+			// avoid holes and edges
+			if (groundIdx == 1)
+			{
+				iCode += (m_random.NextDouble () < m_fObstacleRarity) ? 1 : 0;
+			}
+
+			m_listGroundedObjectCode.Add (iCode);
+		}
 	}
 }

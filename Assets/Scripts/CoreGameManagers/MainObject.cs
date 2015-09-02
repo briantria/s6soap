@@ -12,7 +12,6 @@ public class MainObject : MonoBehaviour
 	[SerializeField] private SpriteRenderer m_groundGlow; 
 
 	private Rigidbody2D m_rigidbody;
-	private Transform   m_transform;
 	private bool        m_bDidPause;
 	private Vector2     m_v2PrevVelocity;
 	private float       m_fPrevAngularVelocity;
@@ -24,24 +23,23 @@ public class MainObject : MonoBehaviour
 	protected void Awake ()
 	{
 		m_rigidbody = this.GetComponent<Rigidbody2D> ();
-		m_transform = this.transform;
 		m_bDidPause = false;
 	}
 	
 	protected void OnCollisionEnter2D (Collision2D p_collision2D)
 	{
-		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_OBSTACLE))
-		{
-			m_rigidbody.isKinematic = true;
-			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
-			return;
-		}
+//		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_OBSTACLE))
+//		{
+//			m_rigidbody.isKinematic = true;
+//			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
+//			return;
+//		}
 
 		Vector3 relativePosition = p_collision2D.transform.InverseTransformPoint (p_collision2D.contacts[0].point);
 
 		if (relativePosition.y <= 0)
 		{
-			Debug.Log ("main object is not above");
+			// Debug.Log ("main object is not above");
 			return;
 		}
 

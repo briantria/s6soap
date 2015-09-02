@@ -18,18 +18,18 @@ public class TrglObstacle : LevelElementManager
 	
 		for (int idx = 0; idx < LevelPatternManager.MAX_COLUMN; ++idx)
 		{
-			GameObject obj = AddElement(PREFAB_SOURCE_PATH, idx);
-			float randValue = Random.value;
-			obj.SetActive (randValue < 0.3f);
+			GameObject obj = AddElement (PREFAB_SOURCE_PATH, idx);
+			obj.SetActive (MapGenerator.Instance.GroundedObjectCode[idx] == 0);
 			m_listElement.Add (obj);
 		}
 	}
 
 	public void GenerateNextPattern ()
 	{
-		foreach (GameObject obj in m_listElement)
+		for (int idx = 0; idx < LevelPatternManager.MAX_COLUMN; ++idx)
 		{
-			obj.transform.GetChild(0).transform.localPosition = Vector3.zero;
+			m_listElement[idx].transform.GetChild(0).transform.localPosition = Vector3.zero;
+			m_listElement[idx].SetActive (MapGenerator.Instance.GroundedObjectCode[idx] == 0);
 		}
 	}
 }

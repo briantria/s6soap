@@ -50,12 +50,12 @@ public class Draggable : MonoBehaviour
 
 		if (m_bHDrag)
 		{
-			v3NewPos.x += m_v3CurrCursorPos.x - m_v3PrevCursorPos.x;
+			v3NewPos.x = m_v3CurrCursorPos.x;// += m_v3CurrCursorPos.x - m_v3PrevCursorPos.x;
 		}
 
 		if (m_bVDrag)
 		{
-			v3NewPos.y += m_v3CurrCursorPos.y - m_v3PrevCursorPos.y;
+			v3NewPos.y = m_v3CurrCursorPos.y;// += m_v3CurrCursorPos.y - m_v3PrevCursorPos.y;
 		}
 
 		m_transform.position = v3NewPos;
