@@ -15,6 +15,8 @@ public class GamePlayManager : MonoBehaviour
 	public static readonly float LEVEL_TOP_SPEED = 4.0f;
 	
 	[SerializeField] private MainObject m_mainObject;
+	[SerializeField] private GermLayoutManager m_germLayoutManager;
+
 	private Camera m_mainCamera;
 	private List<LevelPatternManager> m_listLevelPatterns = new List<LevelPatternManager>();
 
@@ -86,10 +88,10 @@ public class GamePlayManager : MonoBehaviour
 		case GameState.Start:
 		{
 			MapGenerator.Instance.Reset ();
-
 			m_mainObject.gameObject.SetActive (true);
 			m_mainObject.RBody2D.isKinematic = false;
 			m_mainObject.Reset ();
+			m_germLayoutManager.Reset ();
 
 			foreach (LevelPatternManager lpm in m_listLevelPatterns)
 			{
@@ -105,8 +107,8 @@ public class GamePlayManager : MonoBehaviour
 		case GameState.Inactive:
 		{
 			m_mainObject.Reset ();
-//			m_mainObject.RBody2D.isKinematic = true;
 			m_mainObject.gameObject.SetActive (false);
+			m_germLayoutManager.Reset ();
 
 			foreach (LevelPatternManager lpm in m_listLevelPatterns)
 			{
@@ -125,6 +127,7 @@ public class GamePlayManager : MonoBehaviour
 
 			m_mainObject.Reset ();
 			m_mainObject.RBody2D.WakeUp ();
+			m_germLayoutManager.Reset ();
 
 			SpeedMultiplier = 1.0f;
 			Invoke ("DelayRunningState", 0.02f);
@@ -135,7 +138,7 @@ public class GamePlayManager : MonoBehaviour
 		{
 			// Debug.Log ("Game Running!");
 			m_mainObject.RBody2D.WakeUp ();
-			m_mainObject.gameObject.SetActive (false);
+			//m_mainObject.gameObject.SetActive (false);
 			break;
 		}}
 	}

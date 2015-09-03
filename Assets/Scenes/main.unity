@@ -2488,6 +2488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mainObject: {fileID: 1063321543}
+  m_germLayoutManager: {fileID: 1861034986}
 --- !u!114 &1670863782
 MonoBehaviour:
   m_ObjectHideFlags: 0

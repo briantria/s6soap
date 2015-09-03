@@ -87,23 +87,28 @@ public class GermLayoutManager : MonoBehaviour
 		for (int idx = 0; idx < MAX_GERM_COUNT; ++idx)
 		{
 			GameObject obj = Instantiate (Resources.Load(PREFAB_SOURCE_PATH)) as GameObject;
-
-			int colIdx = idx / ROW_COUNT;
-			int rowIdx = idx % ROW_COUNT;
-
-			float colPosY    = ACTUAL_SPRITE_SIZE.y * BASE_SCALE * PADDING.y;
-			float colOffsetY = (colPosY * rowIdx) - (colPosY * 0.5f * (colIdx % 2));
-
-			Transform tObj = obj.transform;
-			tObj.SetParent (this.transform);
-			tObj.localScale *= BASE_SCALE;
-			tObj.position = new Vector3 (ACTUAL_SPRITE_SIZE.x * BASE_SCALE * PADDING.x * colIdx,
-			                             COL_INIT_POSY - colOffsetY,
-			                             0.0f);
-
 			m_listGerms.Add (obj);
-			GenerateNextGerm (idx);
+			ResetGermPosition (obj, idx);
 		}
+	}
+
+	private void ResetGermPosition (GameObject p_obj, int p_idx)
+	{
+		//Debug.Log("[ResetGermPosition] idx: " + p_idx);
+
+		int colIdx = p_idx / ROW_COUNT;
+		int rowIdx = p_idx % ROW_COUNT;
+		
+		float colPosY    = ACTUAL_SPRITE_SIZE.y * BASE_SCALE * PADDING.y;
+		float colOffsetY = (colPosY * rowIdx) - (colPosY * 0.5f * (colIdx % 2));
+		
+		Transform tObj = p_obj.transform;
+		tObj.SetParent (this.transform);
+		tObj.localScale *= BASE_SCALE;
+		tObj.position = new Vector3 (ACTUAL_SPRITE_SIZE.x * BASE_SCALE * PADDING.x * colIdx,
+		                             COL_INIT_POSY - colOffsetY,
+		                             0.0f);
+		GenerateNextGerm (p_idx);
 	}
 
 	public void Reset ()
@@ -112,9 +117,25 @@ public class GermLayoutManager : MonoBehaviour
 		m_iCurrGermIdx = 0;
 		m_transform.position = new Vector3 (0.0f, 0.0f, 0.0f);
 
-		if (m_listGerms.Count > 0)
+		//Debug.Log ("RESET!!!!@@@#@#@: " + m_listGerms.Count);
+
+		if (m_listGerms.Count == MAX_GERM_COUNT)
 		{
 			m_tCurrGermFollowed = m_listGerms[0].transform;
+
+			int idx = 0;
+			int jdx = MAX_GERM_COUNT - 1;
+
+			//Debug.Log ("RESET!");
+
+			do
+			{
+				ResetGermPosition (m_listGerms[idx], idx++);
+				if (idx > jdx) { break; }
+
+				ResetGermPosition (m_listGerms[jdx], jdx--);
+			}
+			while (jdx >= idx);
 		}
 	}
 
