@@ -15,7 +15,7 @@ public class MotionCamera : MonoBehaviour
     private bool m_bFollowMainObject;
     private bool m_bLerpToMainObject;
     private bool m_bLerpToMax;
-    private bool m_bLerpToDefault;
+//    private bool m_bLerpToDefault;
 
     private Camera m_attachedCamera;
     private Transform m_transform;
@@ -79,7 +79,7 @@ public class MotionCamera : MonoBehaviour
         {
             m_bFollowMainObject = false;
             m_bLerpToMainObject = false;
-            m_bLerpToDefault = false;
+//            m_bLerpToDefault = false;
             m_bLerpToMax = false;
 //            GameStateManager.Instance.IsPaused = true;
             
@@ -89,7 +89,7 @@ public class MotionCamera : MonoBehaviour
         {
             m_bFollowMainObject = true;
             m_bLerpToMainObject = false;
-            m_bLerpToDefault = true;
+//            m_bLerpToDefault = true;
             
             break;
         }
@@ -97,7 +97,7 @@ public class MotionCamera : MonoBehaviour
         {
             m_bLerpToMainObject = true;
             m_bFollowMainObject = false;
-            m_bLerpToDefault = false;
+//            m_bLerpToDefault = false;
             m_bLerpToMax = false;
             
             break;
