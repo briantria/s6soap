@@ -26,22 +26,28 @@ public class MainObject : MonoBehaviour
 		m_rigidbody = this.GetComponent<Rigidbody2D> ();
 		m_bDidPause = false;
 	}
+
+	protected void OnTriggerEnter2D (Collider2D p_collider2D)
+	{
+		if (p_collider2D.CompareTag(MapGenerator.TAG_COLLECTIBLE))
+		{
+
+		}
+	}
 	
 	protected void OnCollisionEnter2D (Collision2D p_collision2D)
 	{
-		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_OBSTACLE))
-		{
-			m_rigidbody.Sleep ();
-			//m_rigidbody.isKinematic = true;
-			UIStateManager.Instance.ChangeUIState (UIState.OnResultScreen);
-			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
-			return;
-		}
+//		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_OBSTACLE))
+//		{
+//			m_rigidbody.Sleep ();
+//			UIStateManager.Instance.ChangeUIState (UIState.OnResultScreen);
+//			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
+//			return;
+//		}
 
 		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_DEATHAREA))
 		{
 			m_rigidbody.Sleep ();
-			//m_rigidbody.isKinematic = true;
 			UIStateManager.Instance.ChangeUIState (UIState.OnResultScreen);
 			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
 			return;

@@ -94,8 +94,6 @@ public class GermLayoutManager : MonoBehaviour
 
 	private void ResetGermPosition (GameObject p_obj, int p_idx)
 	{
-		//Debug.Log("[ResetGermPosition] idx: " + p_idx);
-
 		int colIdx = p_idx / ROW_COUNT;
 		int rowIdx = p_idx % ROW_COUNT;
 		
@@ -117,16 +115,12 @@ public class GermLayoutManager : MonoBehaviour
 		m_iCurrGermIdx = 0;
 		m_transform.position = new Vector3 (0.0f, 0.0f, 0.0f);
 
-		//Debug.Log ("RESET!!!!@@@#@#@: " + m_listGerms.Count);
-
 		if (m_listGerms.Count == MAX_GERM_COUNT)
 		{
 			m_tCurrGermFollowed = m_listGerms[0].transform;
 
 			int idx = 0;
 			int jdx = MAX_GERM_COUNT - 1;
-
-			//Debug.Log ("RESET!");
 
 			do
 			{

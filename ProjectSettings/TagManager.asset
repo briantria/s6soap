@@ -9,6 +9,7 @@ TagManager:
   - Platform
   - DeathArea
   - EdgePlatform
+  - Collectible
   layers:
   - Default
   - TransparentFX
