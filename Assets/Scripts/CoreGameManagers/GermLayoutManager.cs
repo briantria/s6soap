@@ -52,7 +52,7 @@ public class GermLayoutManager : MonoBehaviour
 
 	protected void Update ()
 	{
-		if (GameStateManager.Instance.IsPaused ||
+		if (//GameStateManager.Instance.IsPaused ||
 		    GameStateManager.Instance.CurrentState != GameState.Running)
 		{
 			return;

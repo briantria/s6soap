@@ -65,29 +65,29 @@ public class MainObject : MonoBehaviour
 		}
 	}
 	
-	protected void Update ()
-	{
-		if (GameStateManager.Instance.IsPaused)
-		{
-			if (m_bDidPause) { return; }
-			
-			m_v2PrevVelocity = m_rigidbody.velocity;
-			m_fPrevAngularVelocity = m_rigidbody.angularVelocity;
-			
-			m_bDidPause = true;
-			m_rigidbody.isKinematic = true;
-		}
-		else // resume
-		{
-			if (!m_bDidPause) { return; }
-			
-			m_bDidPause = false;
-			m_rigidbody.isKinematic = false;
-			
-			m_rigidbody.velocity = m_v2PrevVelocity;
-			m_rigidbody.angularVelocity = m_fPrevAngularVelocity;
-		}
-	}
+//	protected void Update ()
+//	{
+//		if (GameStateManager.Instance.IsPaused)
+//		{
+//			if (m_bDidPause) { return; }
+//			
+//			m_v2PrevVelocity = m_rigidbody.velocity;
+//			m_fPrevAngularVelocity = m_rigidbody.angularVelocity;
+//			
+//			m_bDidPause = true;
+//			m_rigidbody.isKinematic = true;
+//		}
+//		else // resume
+//		{
+//			if (!m_bDidPause) { return; }
+//			
+//			m_bDidPause = false;
+//			m_rigidbody.isKinematic = false;
+//			
+//			m_rigidbody.velocity = m_v2PrevVelocity;
+//			m_rigidbody.angularVelocity = m_fPrevAngularVelocity;
+//		}
+//	}
 
 	private void DelayedJump ()
 	{

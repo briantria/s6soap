@@ -81,7 +81,7 @@ public class MotionCamera : MonoBehaviour
             m_bLerpToMainObject = false;
             m_bLerpToDefault = false;
             m_bLerpToMax = false;
-            GameStateManager.Instance.IsPaused = true;
+//            GameStateManager.Instance.IsPaused = true;
             
             break;
         }
@@ -95,9 +95,10 @@ public class MotionCamera : MonoBehaviour
         }
         case GameState.GameOver:
         {
-            m_bFollowMainObject = false;
             m_bLerpToMainObject = true;
-//            m_bLerpToDefault = false;
+            m_bFollowMainObject = false;
+            m_bLerpToDefault = false;
+            m_bLerpToMax = false;
             
             break;
         }
