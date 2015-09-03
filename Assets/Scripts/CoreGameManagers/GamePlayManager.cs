@@ -94,9 +94,9 @@ public class GamePlayManager : MonoBehaviour
 			m_germLayoutManager.Reset ();
 
 			foreach (LevelPatternManager lpm in m_listLevelPatterns)
-			{
+            {
+                lpm.gameObject.SetActive (true);
 				lpm.Reset ();
-				lpm.gameObject.SetActive (true);
 			}
 
 			SpeedMultiplier = 1.0f;
