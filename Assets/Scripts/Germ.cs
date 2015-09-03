@@ -13,6 +13,8 @@ public class Germ : MonoBehaviour, ICollectible
 
     public void Collect ()
     {
+        // TODO: destroy animation
         m_objContainer.SetActive (false);
+        GameHudManager.Instance.UpdateScore (1);
     }
 }

@@ -15,12 +15,14 @@ public class ScreenManager : MonoBehaviour
 	
 	virtual protected void OnEnable ()
 	{
-		UIStateManager.changeUIState += ChangeUIState;
+        UIStateManager.changeUIState += ChangeUIState;
+        GameStateManager.changeGameState += ChangeGameState;
 	}
 	
 	virtual protected void OnDisable ()
 	{
-		UIStateManager.changeUIState -= ChangeUIState;
+        UIStateManager.changeUIState -= ChangeUIState;
+        GameStateManager.changeGameState -= ChangeGameState;
 	}
 	
 	virtual protected void Awake ()
@@ -35,6 +37,7 @@ public class ScreenManager : MonoBehaviour
 			m_listChildrenObj.Add (child.gameObject);
 		}
 	}
-
-	virtual protected void ChangeUIState (UIState p_uiState) { }
+    
+    virtual protected void ChangeUIState (UIState p_uiState) { }
+    virtual protected void ChangeGameState (GameState p_gameState) { }
 }
