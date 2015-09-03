@@ -20,6 +20,16 @@ public class Draggable : MonoBehaviour
 	private Vector3 m_v3CurrCursorPos;
 	private Transform m_transform;
 
+	protected void OnEnable ()
+	{
+		GameStateManager.changeGameState += ChangeGameState;
+	}
+	
+	protected void OnDisable ()
+	{
+		GameStateManager.changeGameState -= ChangeGameState;
+	}
+
 	protected void Awake ()
 	{
 		m_bWillDrag = false;
@@ -68,5 +78,16 @@ public class Draggable : MonoBehaviour
 			CurrentDragObject = null;
 			m_bWillDrag = false;
 		}
+	}
+
+	private void ChangeGameState (GameState p_gameState)
+	{
+		switch (p_gameState){
+		case GameState.GameOver:
+		{
+			CurrentDragObject = null;
+			m_bWillDrag = false;
+			break;
+		}}
 	}
 }
