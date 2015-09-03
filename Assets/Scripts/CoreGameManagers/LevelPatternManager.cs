@@ -11,8 +11,9 @@ public class LevelPatternManager : MonoBehaviour
 {
 	public static readonly int   MAX_COLUMN = 10;
 	public static readonly float COLUMN_WIDTH = 128f * Constants.PPU_MULTIPLIER;
-	public static readonly float LOWER_OFFSET_Y = -2.0f;
-	public static readonly float UPPER_OFFSET_Y =  2.0f;
+    public static readonly float LOWER_OFFSET_Y = -8.0f;
+    public static readonly float UPPER_OFFSET_Y =  2.0f;
+    public static readonly float OFFSET_X =  -2.0f;
 
 	GroundMain m_groundMain;
 	GroundDraggable m_groundDraggable;
@@ -83,7 +84,7 @@ public class LevelPatternManager : MonoBehaviour
 
 		m_fWidth = MAX_COLUMN * COLUMN_WIDTH;
 		m_transform.position = new Vector3 (m_fWidth * p_idx, 0.0f, 0.0f);
-		OffsetPosition (new Vector3 (-5.0f, LevelPatternManager.LOWER_OFFSET_Y, 0.0f));
+        OffsetPosition (new Vector3 (OFFSET_X, LOWER_OFFSET_Y, 0.0f));
 	}
 
 	public void Reset ()
@@ -95,7 +96,7 @@ public class LevelPatternManager : MonoBehaviour
 		m_trglObstacle.GenerateNextPattern ();
 
 		m_transform.position = new Vector3 (m_fWidth * m_id, 0.0f, 0.0f);
-		OffsetPosition (new Vector3 (-5.0f, LevelPatternManager.LOWER_OFFSET_Y, 0.0f));
+        OffsetPosition (new Vector3 (OFFSET_X, LOWER_OFFSET_Y, 0.0f));
 	}
 	
 	public void OffsetPosition (Vector3 p_v3Offset)

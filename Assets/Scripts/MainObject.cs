@@ -10,6 +10,7 @@ using System.Collections;
 public class MainObject : MonoBehaviour
 {
 	[SerializeField] private MainObjectGroundGlow m_groundGlow; 
+    [SerializeField] private GameObject m_objPlayButton; 
 	[SerializeField] private float m_torque;
 	[SerializeField] private float m_jumpVelocity;
 	[SerializeField] private float m_jumpDelay;
@@ -37,18 +38,11 @@ public class MainObject : MonoBehaviour
 	
 	protected void OnCollisionEnter2D (Collision2D p_collision2D)
 	{
-//		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_OBSTACLE))
-//		{
-//			m_rigidbody.Sleep ();
-//			UIStateManager.Instance.ChangeUIState (UIState.OnResultScreen);
-//			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
-//			return;
-//		}
-
-		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_DEATHAREA))
+		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_OBSTACLE)  ||
+            p_collision2D.gameObject.CompareTag(MapGenerator.TAG_DEATHAREA) )
 		{
 			m_rigidbody.Sleep ();
-			UIStateManager.Instance.ChangeUIState (UIState.OnResultScreen);
+			//UIStateManager.Instance.ChangeUIState (UIState.OnResultScreen);
 			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
 			return;
 		}
@@ -99,16 +93,17 @@ public class MainObject : MonoBehaviour
 	{
 		float angularVel = Mathf.Clamp (m_torque - m_rigidbody.angularVelocity, m_torque, m_torque * 0.8f);
 		m_rigidbody.AddForce (Vector2.one * m_jumpVelocity, ForceMode2D.Impulse);
-		m_rigidbody.AddTorque (angularVel, ForceMode2D.Impulse);
+		//m_rigidbody.AddTorque (angularVel, ForceMode2D.Impulse);
 	}
 
 	public void Reset ()
 	{
-		Vector3 pos   = this.transform.position;
-				pos.y = 2;
-		this.transform.position = pos;
+//		Vector3 pos   = this.transform.position;
+//				pos.y = 2;
+		this.transform.position = Vector3.zero;
 		this.transform.localEulerAngles = Vector3.zero;
 
+        m_objPlayButton.SetActive (false);
 		m_rigidbody.Sleep ();
 		m_rigidbody.velocity = Vector2.zero;
 		m_rigidbody.angularVelocity = 0.0f;
