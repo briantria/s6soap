@@ -11,7 +11,8 @@ using System.Collections.Generic;
 public class GermLayoutManager : MonoBehaviour 
 {
 	private const    string  PREFAB_SOURCE_PATH = "Prefabs/Germ";
-	private const    int     MAX_GERM_COUNT     = 9;//60;
+	private const    int     ROW_COUNT          = 3;
+	private const    int     MAX_GERM_COUNT     = ROW_COUNT * 10;
 	private const    float   PARALLAX           = 0.5f;
 	private const    float   COL_INIT_POSY      = 6.0f;
 	private readonly Vector2 ACTUAL_SPRITE_SIZE = new Vector2 (166.0f, 144.0f) * Constants.PPU_MULTIPLIER;
@@ -20,6 +21,8 @@ public class GermLayoutManager : MonoBehaviour
 	private Transform        m_transform;
 	private float            m_fWidth;
 	private int              m_iCurrColumn;
+	private int              m_iPrevGermSetCount;
+	private int              m_iCurrGermSetCount;
 	private int              m_iSeed;
 	private System.Random    m_random;
 	private List<GameObject> m_listGerms = new List<GameObject> ();
@@ -27,7 +30,7 @@ public class GermLayoutManager : MonoBehaviour
 	protected void Awake ()
 	{
 		m_transform = this.transform;
-		m_iSeed = "papabao".GetHashCode ();
+		m_iSeed = "1312!4N".GetHashCode ();
 		Reset ();
 	}
 
@@ -48,7 +51,7 @@ public class GermLayoutManager : MonoBehaviour
 		pos.x -= PARALLAX * GamePlayManager.LEVEL_SPEED * GamePlayManager.Instance.SpeedMultiplier * Time.deltaTime;
 
 		// start from 0, check if every 3 object is offscreen
-		// if yes, reposition those objects and generate next pattern
+		// if yes, reposition (posx only) those objects and generate next pattern
 	}
 
 	private void Setup ()
@@ -59,20 +62,21 @@ public class GermLayoutManager : MonoBehaviour
 		{
 			GameObject obj = Instantiate (Resources.Load(PREFAB_SOURCE_PATH)) as GameObject;
 
-			int col = idx / 3;
-			int row = idx % 3;
+			int colIdx = idx / ROW_COUNT;
+			int rowIdx = idx % ROW_COUNT;
 
 			float colPosY    = ACTUAL_SPRITE_SIZE.y * fBaseScale * PADDING.y;
-			float colOffsetY = (colPosY * row) - (colPosY * 0.5f * (col % 2));
+			float colOffsetY = (colPosY * rowIdx) - (colPosY * 0.5f * (colIdx % 2));
 
 			Transform tObj = obj.transform;
 			tObj.SetParent (this.transform);
 			tObj.localScale *= fBaseScale;
-			tObj.position = new Vector3 (ACTUAL_SPRITE_SIZE.x * fBaseScale * PADDING.x * col,
+			tObj.position = new Vector3 (ACTUAL_SPRITE_SIZE.x * fBaseScale * PADDING.x * colIdx,
 			                             COL_INIT_POSY - colOffsetY,
 			                             0.0f);
 
 			m_listGerms.Add (obj);
+			GenerateNextGerm (idx);
 		}
 	}
 
@@ -82,10 +86,16 @@ public class GermLayoutManager : MonoBehaviour
 		m_transform.position = new Vector3 (0.0f, 0.0f, 0.0f);
 	}
 
-	public void GenerateNextPattern ()
+	// TODO: consider current map layout
+	public void GenerateNextGerm (int p_idx)
 	{
-		// offset pos.x of germ set
-		// randomize which are visible
-		// middle (or atleast 2?) should always be visible 
+		// ensure mid row is visible
+		if ((p_idx % ROW_COUNT) == (ROW_COUNT / 2))
+		{
+			m_listGerms[p_idx].SetActive (true);
+			return;
+		}
+
+		m_listGerms[p_idx].SetActive (m_random.NextDouble() < 0.6f);
 	}
 }
