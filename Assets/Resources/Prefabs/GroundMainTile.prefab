@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 478578}
-  - 212: {fileID: 21240492}
   - 61: {fileID: 6151950}
   m_Layer: 0
   m_Name: GroundMainTile
@@ -17,6 +16,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &179186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 448244}
+  - 212: {fileID: 21250242}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &448244
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 478578}
+  m_RootOrder: 0
 --- !u!4 &478578
 Transform:
   m_ObjectHideFlags: 1
@@ -26,7 +53,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 448244}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!61 &6151950
@@ -41,13 +69,13 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: .159999996, y: .159999996}
---- !u!212 &21240492
+  m_Size: {x: 1.27999997, y: .159999996}
+--- !u!212 &21250242
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 112236}
+  m_GameObject: {fileID: 179186}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -66,7 +94,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 346201587
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2021a7ee58e66e64eb3a3400b63e28c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14819156d46c245a1885ecf1160c48d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -78,7 +106,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2021a7ee58e66e64eb3a3400b63e28c4,
+      objectReference: {fileID: 21300000, guid: e673d45a61cf8430e846ce76d05e02dd,
         type: 3}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.y
@@ -111,6 +139,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: MainPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

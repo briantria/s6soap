@@ -21,31 +21,33 @@ public class GroundMain : LevelElementManager
 		3 -> left edge
 	 */
 
-	private void ApplyMapCode (SpriteRenderer p_sr, int p_idx)
+	private void ApplyMapCode (GameObject p_obj, int p_idx)
 	{
 		Vector3 spriteScale = Vector3.one;
-		p_sr.gameObject.SetActive (false);
+		p_obj.SetActive (true);
+		SpriteRenderer sr = p_obj.GetComponentInChildren<SpriteRenderer> ();
 
 		if (MapGenerator.Instance.GroundCode[p_idx] > 1)
 		{
-			p_sr.tag = MapGenerator.TAG_PLATFORM;
-			p_sr.gameObject.SetActive (true);
-			p_sr.sprite = Resources.Load (GROUND_EDGE_SPRITE_PATH, typeof(Sprite)) as Sprite;
-			spriteScale.x = ((MapGenerator.Instance.GroundCode[p_idx] * 2) - 5);
+			p_obj.tag = MapGenerator.TAG_PLATFORM;
+			//p_obj.SetActive (true);
+			sr.sprite = Resources.Load (GROUND_EDGE_SPRITE_PATH, typeof(Sprite)) as Sprite;
+			spriteScale.x = (5 - (MapGenerator.Instance.GroundCode[p_idx] * 2));
 		}
 		else if (MapGenerator.Instance.GroundCode[p_idx] > 0)
 		{
-			p_sr.tag = MapGenerator.TAG_MAINPLATFORM;
-			p_sr.gameObject.SetActive (true);
-			p_sr.sprite = Resources.Load (GROUND_MAIN_SPRITE_PATH, typeof(Sprite)) as Sprite;
+			p_obj.tag = MapGenerator.TAG_MAINPLATFORM;
+			//p_obj.SetActive (true);
+			sr.sprite = Resources.Load (GROUND_MAIN_SPRITE_PATH, typeof(Sprite)) as Sprite;
 		}
 		else
 		{
+			p_obj.SetActive (false);
 			return;
 		}
 
-		spriteScale.x *= (LevelPatternManager.COLUMN_WIDTH / p_sr.sprite.bounds.size.x);
-		p_sr.transform.localScale = spriteScale;
+		spriteScale.x *= (LevelPatternManager.COLUMN_WIDTH / sr.sprite.bounds.size.x);
+		sr.transform.localScale = spriteScale;
 	}
 
 	public void Setup ()
@@ -53,8 +55,7 @@ public class GroundMain : LevelElementManager
 		for (int idx = 0; idx < LevelPatternManager.MAX_COLUMN; ++idx)
 		{
 			GameObject obj = AddElement(PREFAB_SOURCE_PATH, idx);
-			SpriteRenderer sr = obj.GetComponent<SpriteRenderer> ();
-			ApplyMapCode (sr, idx);
+			ApplyMapCode (obj, idx);
 			m_listElement.Add (obj);
 		}
 	}
@@ -63,7 +64,7 @@ public class GroundMain : LevelElementManager
 	{
 		for (int idx = 0; idx < LevelPatternManager.MAX_COLUMN; ++idx)
 		{
-			ApplyMapCode (m_listElement[idx].GetComponent<SpriteRenderer>(), idx);
+			ApplyMapCode (m_listElement[idx], idx);
 		}
 	}
 }
