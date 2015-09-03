@@ -125,13 +125,14 @@ public class GamePlayManager : MonoBehaviour
 			}
 
 			m_mainObject.Reset ();
+			m_mainObject.RBody2D.WakeUp ();
 
 			SpeedMultiplier = 1.0f;
 			Invoke ("DelayRunningState", 0.02f);
 
 			break;
 		}
-		default: // Running
+		case GameState.Running:
 		{
 			// Debug.Log ("Game Running!");
 			m_mainObject.RBody2D.WakeUp ();

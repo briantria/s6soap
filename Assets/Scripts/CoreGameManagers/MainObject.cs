@@ -39,7 +39,8 @@ public class MainObject : MonoBehaviour
 		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_DEATHAREA))
 		{
 			m_rigidbody.Sleep ();
-			m_rigidbody.isKinematic = true;
+			//m_rigidbody.isKinematic = true;
+			UIStateManager.Instance.ChangeUIState (UIState.OnResultScreen);
 			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
 			return;
 		}
