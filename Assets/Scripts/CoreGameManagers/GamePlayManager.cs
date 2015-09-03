@@ -76,7 +76,6 @@ public class GamePlayManager : MonoBehaviour
 			
 			LevelPatternManager levelPatternManager = objLevelPattern.AddComponent<LevelPatternManager> ();
 			levelPatternManager.Setup (idx);
-			//levelPatternManager.OffsetPosition (new Vector3 (-5.0f, LevelPatternManager.LOWER_OFFSET_Y, 0.0f));
 			m_listLevelPatterns.Add (levelPatternManager);
 		}
 	}
