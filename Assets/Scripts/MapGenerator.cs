@@ -15,6 +15,7 @@ public class MapGenerator : MonoBehaviour
 
 	public static readonly string TAG_OBSTACLE = "Obstacle";
 	public static readonly string TAG_MAINPLATFORM = "MainPlatform";
+	public static readonly string TAG_DEATHAREA = "DeathArea";
 
 	#region properties
 	private List<int> m_listGroundCode = new List<int> ();

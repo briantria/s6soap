@@ -36,6 +36,14 @@ public class MainObject : MonoBehaviour
 //			return;
 //		}
 
+		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_DEATHAREA))
+		{
+			m_rigidbody.Sleep ();
+			m_rigidbody.isKinematic = true;
+			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
+			return;
+		}
+
 		Vector3 relativePosition = p_collision2D.transform.InverseTransformPoint (p_collision2D.contacts[0].point);
 
 		if (relativePosition.y <= 0)
