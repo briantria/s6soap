@@ -28,12 +28,14 @@ public class GroundMain : LevelElementManager
 
 		if (MapGenerator.Instance.GroundCode[p_idx] > 1)
 		{
+			p_sr.tag = MapGenerator.TAG_PLATFORM;
 			p_sr.gameObject.SetActive (true);
 			p_sr.sprite = Resources.Load (GROUND_EDGE_SPRITE_PATH, typeof(Sprite)) as Sprite;
 			spriteScale.x = ((MapGenerator.Instance.GroundCode[p_idx] * 2) - 5);
 		}
 		else if (MapGenerator.Instance.GroundCode[p_idx] > 0)
 		{
+			p_sr.tag = MapGenerator.TAG_MAINPLATFORM;
 			p_sr.gameObject.SetActive (true);
 			p_sr.sprite = Resources.Load (GROUND_MAIN_SPRITE_PATH, typeof(Sprite)) as Sprite;
 		}

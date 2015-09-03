@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - Platform
   - DeathArea
+  - EdgePlatform
   layers:
   - Default
   - TransparentFX

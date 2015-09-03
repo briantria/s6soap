@@ -9,7 +9,7 @@ using System.Collections;
 
 public class MainObject : MonoBehaviour
 {
-	[SerializeField] private SpriteRenderer m_groundGlow; 
+	[SerializeField] private MainObjectGroundGlow m_groundGlow; 
 	[SerializeField] private float m_torque;
 	[SerializeField] private float m_jumpVelocity;
 	[SerializeField] private float m_jumpDelay;
@@ -29,12 +29,14 @@ public class MainObject : MonoBehaviour
 	
 	protected void OnCollisionEnter2D (Collision2D p_collision2D)
 	{
-//		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_OBSTACLE))
-//		{
-//			m_rigidbody.isKinematic = true;
-//			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
-//			return;
-//		}
+		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_OBSTACLE))
+		{
+			m_rigidbody.Sleep ();
+			//m_rigidbody.isKinematic = true;
+			UIStateManager.Instance.ChangeUIState (UIState.OnResultScreen);
+			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
+			return;
+		}
 
 		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_DEATHAREA))
 		{
@@ -59,9 +61,7 @@ public class MainObject : MonoBehaviour
 		
 		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_MAINPLATFORM))
 		{
-			m_groundGlow.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-			StopCoroutine ("GlowFadeOut");
-			StartCoroutine ("GlowFadeOut");
+			m_groundGlow.Activate (m_jumpDelay);
 		}
 	}
 	
@@ -94,26 +94,6 @@ public class MainObject : MonoBehaviour
 		float angularVel = Mathf.Clamp (m_torque - m_rigidbody.angularVelocity, m_torque, m_torque * 0.8f);
 		m_rigidbody.AddForce (Vector2.one * m_jumpVelocity, ForceMode2D.Impulse);
 		m_rigidbody.AddTorque (angularVel, ForceMode2D.Impulse);
-	}
-
-	private IEnumerator GlowFadeOut ()
-	{
-		yield return new WaitForSeconds (m_jumpDelay);
-		float fAlpha = 1.0f;
-
-		while (true)
-		{
-			yield return new WaitForSeconds (0.01f);
-			fAlpha -= 0.05f;
-			fAlpha = Mathf.Max (fAlpha, 0.0f);
-			m_groundGlow.color = new Color (1.0f, 1.0f, 1.0f, fAlpha);
-
-			if (fAlpha <= 0.0f)
-			{
-				StopCoroutine ("GlowFadeOut");
-				break;
-			}
-		}
 	}
 
 	public void Reset ()
