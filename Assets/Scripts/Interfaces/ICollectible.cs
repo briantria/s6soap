@@ -1,15 +1,13 @@
-﻿using UnityEngine;
+﻿/*
+ * Brian Tria
+ * 09/04/2015
+ * 
+ */
+
+using UnityEngine;
 using System.Collections;
 
-public class ICollectible : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+public interface ICollectible 
+{
+    void Collect ();
 }

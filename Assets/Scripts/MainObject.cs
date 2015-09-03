@@ -31,7 +31,7 @@ public class MainObject : MonoBehaviour
 	{
 		if (p_collider2D.CompareTag(MapGenerator.TAG_COLLECTIBLE))
 		{
-
+            p_collider2D.gameObject.GetComponent<ICollectible>().Collect ();
 		}
 	}
 	
