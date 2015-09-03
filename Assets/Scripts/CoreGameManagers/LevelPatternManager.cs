@@ -20,11 +20,12 @@ public class LevelPatternManager : MonoBehaviour
 	TrglObstacle m_trglObstacle;
 
 	private Transform m_transform;
+	private Camera m_mainCamera;
 	private int m_id;
 
 	private float m_fWidth = 0;
 	public  float Width {get{return m_fWidth;}}
-	
+
 	protected void Update ()
 	{
 		if (GameStateManager.Instance.IsPaused ||
@@ -36,7 +37,7 @@ public class LevelPatternManager : MonoBehaviour
 		Vector3 v3NewPos = m_transform.position;
 		v3NewPos.x -= GamePlayManager.LEVEL_SPEED * GamePlayManager.Instance.SpeedMultiplier * Time.deltaTime;
 		
-		if (v3NewPos.x < GameHudManager.MinScreenToWorldBounds.x - m_fWidth)
+		if (v3NewPos.x < GameHudManager.MinScreenToWorldBounds.x - m_fWidth - m_mainCamera.orthographicSize)
 		{
 			MapGenerator.Instance.GenerateRandomMap ();
 
@@ -67,6 +68,7 @@ public class LevelPatternManager : MonoBehaviour
 	{
 		m_id = p_idx;
 		m_transform = this.transform;
+		m_mainCamera = Camera.main;
 	
 		m_groundMain = CreateLevelPatternElement("GroundMain").AddComponent<GroundMain> ();
 		m_groundDraggable = CreateLevelPatternElement("GroundDraggable").AddComponent<GroundDraggable> ();

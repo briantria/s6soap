@@ -12,7 +12,7 @@ public class GamePlayManager : MonoBehaviour
 {
 	public static readonly int MAX_LEVEL_PATTERN_COUNT = 3;
 	public static readonly float LEVEL_SPEED = 2.0f;
-	public static readonly float LEVEL_TOP_SPEED = 5.0f;
+	public static readonly float LEVEL_TOP_SPEED = 4.0f;
 	
 	[SerializeField] private MainObject m_mainObject;
 	private Camera m_mainCamera;
@@ -135,6 +135,7 @@ public class GamePlayManager : MonoBehaviour
 		{
 			// Debug.Log ("Game Running!");
 			m_mainObject.RBody2D.WakeUp ();
+			m_mainObject.gameObject.SetActive (false);
 			break;
 		}}
 	}
