@@ -15,11 +15,18 @@ public class MainObject : MonoBehaviour
 	[SerializeField] private float m_torque;
 	[SerializeField] private float m_jumpVelocity;
 	[SerializeField] private float m_jumpDelay;
+	
+	[SerializeField] AudioClip m_audioDeath;
+	[SerializeField] AudioClip m_audioJump;
+	[SerializeField] AudioClip m_audioHit;
+	[SerializeField] AudioClip m_audioPlayBtn;
+	[SerializeField] AudioClip m_audioGameOver;
 
 //	private bool    m_bDidPause;
 	private Vector2 m_v2PrevVelocity;
 	private float   m_fPrevAngularVelocity;
-	
+
+	private AudioSource m_audioSource;
 	private Rigidbody2D m_rigidbody;
 	public  Rigidbody2D RBody2D {get{return m_rigidbody;}}
     public bool ResetReady { get; set; }
@@ -37,6 +44,7 @@ public class MainObject : MonoBehaviour
 	protected void Awake ()
 	{
 		m_rigidbody = this.GetComponent<Rigidbody2D> ();
+		m_audioSource = this.GetComponent<AudioSource> ();
 //		m_bDidPause = false;
 	}
 
@@ -45,6 +53,14 @@ public class MainObject : MonoBehaviour
 		if (p_collider2D.CompareTag(MapGenerator.TAG_COLLECTIBLE))
 		{
             p_collider2D.gameObject.GetComponent<ICollectible>().Collect ();
+
+			if (m_audioSource.isPlaying)
+			{
+				m_audioSource.Stop ();
+			}
+			
+			m_audioSource.clip = m_audioHit;
+			m_audioSource.Play ();
 		}
         
         if (p_collider2D.CompareTag(MapGenerator.TAG_RESET_AREA))
@@ -67,7 +83,16 @@ public class MainObject : MonoBehaviour
             
             m_collider.isTrigger = true;
             m_rigidbody.velocity = Vector2.zero;
-            Jump ();
+			m_rigidbody.AddForce (Vector2.one * m_jumpVelocity, ForceMode2D.Impulse);
+
+			if (m_audioSource.isPlaying)
+			{
+				m_audioSource.Stop ();
+			}
+
+			m_audioSource.clip = m_audioGameOver;
+			m_audioSource.Play ();
+			
 			GameStateManager.Instance.ChangeGameState (GameState.GameOver);
 			return;
 		}
@@ -133,9 +158,29 @@ public class MainObject : MonoBehaviour
 
 	private void Jump ()
 	{
+		if (m_audioSource.isPlaying)
+		{
+			m_audioSource.Stop ();
+		}
+
+//		m_audioSource.clip = m_audioJump;
+		m_audioSource.Play ();
 //		float angularVel = Mathf.Clamp (m_torque - m_rigidbody.angularVelocity, m_torque, m_torque * 0.8f);
 		m_rigidbody.AddForce (Vector2.one * m_jumpVelocity, ForceMode2D.Impulse);
 		//m_rigidbody.AddTorque (angularVel, ForceMode2D.Impulse);
+	}
+
+	public void OnClickPlay ()
+	{
+		GameStateManager.Instance.ChangeGameState (GameState.Restart);
+
+		if (m_audioSource.isPlaying)
+		{
+			m_audioSource.Stop ();
+		}
+		
+		m_audioSource.clip = m_audioPlayBtn;
+		m_audioSource.Play ();
 	}
 
 	public void Reset ()

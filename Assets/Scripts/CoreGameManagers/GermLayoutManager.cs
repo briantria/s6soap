@@ -140,7 +140,7 @@ public class GermLayoutManager : MonoBehaviour
 	{
 		bool bIsMid = (p_idx % ROW_COUNT) == (ROW_COUNT / 2);
 		bool bIsVisible = bIsMid || m_random.NextDouble() < 0.5f;
-		m_listGerms[p_idx].SetActive (bIsVisible);
+		m_listGerms[p_idx].GetComponent<Germ>().Activate (bIsVisible);
 
 		if (bIsVisible)
 		{

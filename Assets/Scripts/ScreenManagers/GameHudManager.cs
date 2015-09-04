@@ -65,10 +65,10 @@ public class GameHudManager : ScreenManager
         }}
     }
 
-    public void OnClickPlay ()
-    {
-        GameStateManager.Instance.ChangeGameState (GameState.Restart);
-    }
+//    public void OnClickPlay ()
+//    {
+//        GameStateManager.Instance.ChangeGameState (GameState.Restart);
+//    }
 
 	public void OnClickPause ()
 	{

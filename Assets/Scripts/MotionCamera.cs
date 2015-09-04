@@ -5,7 +5,7 @@ public class MotionCamera : MonoBehaviour
 {
     [SerializeField] private Transform m_objOnFocus;
     
-    private const float MIN_ORTHOSIZE        = 2.0f;
+    private const float MIN_ORTHOSIZE        = 1.2f;
     private const float MAX_ORTHOSIZE        = 4.2f;
     private const float DEFAULT_ORTHOSIZE = 3.2f;
     
