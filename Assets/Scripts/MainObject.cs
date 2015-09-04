@@ -170,11 +170,39 @@ public class MainObject : MonoBehaviour
 			m_sfxSources[0].Stop ();
 		}
 
-//		m_audioSource.clip = m_audioJump;
 		m_sfxSources[0].Play ();
-//		float angularVel = Mathf.Clamp (m_torque - m_rigidbody.angularVelocity, m_torque, m_torque * 0.8f);
 		m_rigidbody.AddForce (Vector2.one * m_jumpVelocity, ForceMode2D.Impulse);
-		//m_rigidbody.AddTorque (angularVel, ForceMode2D.Impulse);
+
+		StopCoroutine ("Turn60");
+		StartCoroutine ("Turn60");
+	}
+
+	private IEnumerator Turn60 ()
+	{
+		Vector3 v3Euler = this.transform.localEulerAngles;
+
+		float rotateSpeed = 120.0f;
+		float prevEulerZ  = v3Euler.z;
+		float nextEulerZ  = prevEulerZ - rotateSpeed;
+		//float deltaAngle  = 0;
+
+		while (true)
+		{
+			//deltaAngle += 10.0f;
+			//v3Euler.z = Mathf.Lerp (prevEulerZ, nextEulerZ, deltaAngle / rotateSpeed);
+			v3Euler.z -= 5.0f;
+			this.transform.localEulerAngles = v3Euler;
+
+			if (v3Euler.z - nextEulerZ < 0.2f)
+			{
+				v3Euler.z = nextEulerZ;
+				break;
+			}
+
+			yield return new WaitForSeconds (0.008f);
+		}
+
+		this.transform.localEulerAngles = v3Euler;
 	}
 
 	public void OnClickPlay ()
