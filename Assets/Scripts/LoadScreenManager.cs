@@ -15,6 +15,7 @@ public class LoadScreenManager : MonoBehaviour
 
 	[SerializeField] private GameObject m_objMainBG;
 	[SerializeField] private Text       m_txtLoading;
+	[SerializeField] private Text       m_txtAuthor;
 
 	public int TotalInitObjectLoadCount { get; set; }
 
@@ -37,7 +38,7 @@ public class LoadScreenManager : MonoBehaviour
 		
 		while (true)
 		{
-			m_txtLoading.text = "Loading";
+			m_txtLoading.text = "LOADING";
 			yield return new WaitForSeconds (fAnimSpeed);
 			
 			for (int idx = 0; idx < iMaxDotCount; ++idx)
@@ -61,6 +62,7 @@ public class LoadScreenManager : MonoBehaviour
 
 		m_objMainBG.SetActive (false);
 		m_txtLoading.gameObject.SetActive (false);
+		m_txtAuthor.gameObject.SetActive (false);
 		StopCoroutine ("Animate");
 	}
 }

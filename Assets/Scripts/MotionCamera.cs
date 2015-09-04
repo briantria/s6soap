@@ -5,12 +5,14 @@ public class MotionCamera : MonoBehaviour
 {
     [SerializeField] private Transform m_objOnFocus;
     
-    private const float MIN_ORTHOSIZE        = 1.2f;
+    private const float MIN_ORTHOSIZE        = 1.5f;
     private const float MAX_ORTHOSIZE        = 4.2f;
     private const float DEFAULT_ORTHOSIZE = 3.2f;
     
     private const float FOLLOW_LIMIT_Y = -6.0f;
     private const float DEFAULT_POSX = 3.5f;
+
+	private readonly Vector2 CAM_OFFSET = new Vector2 (0.0f, 0.8f);
     
     private float m_fLastOrthoSize;
     private float m_fLastPosX;
@@ -45,7 +47,7 @@ public class MotionCamera : MonoBehaviour
     
         if (m_bFollowMainObject)
         {
-            newPos.y = m_objOnFocus.position.y;
+			newPos.y = m_objOnFocus.position.y + CAM_OFFSET.y;
             m_attachedCamera.orthographicSize = Mathf.Lerp (MIN_ORTHOSIZE, DEFAULT_ORTHOSIZE, newPos.y / FOLLOW_LIMIT_Y);
             
             if (newPos.y <= FOLLOW_LIMIT_Y)
@@ -74,12 +76,12 @@ public class MotionCamera : MonoBehaviour
         
         if (m_bLerpToMainObject)
         {
-            m_attachedCamera.orthographicSize -= GamePlayManager.LEVEL_SPEED * 1.3f * Time.deltaTime;
+            m_attachedCamera.orthographicSize -= GamePlayManager.LEVEL_SPEED * 0.8f * Time.deltaTime;
             float t  = m_fLastOrthoSize - m_attachedCamera.orthographicSize;
                    t /= m_fLastOrthoSize - MIN_ORTHOSIZE;
             
-            newPos.x = Mathf.Lerp (m_fLastPosX, m_objOnFocus.position.x, t);
-            newPos.y = Mathf.Lerp (m_fLastPosY, m_objOnFocus.position.y, t);
+			newPos.x = Mathf.Lerp (m_fLastPosX, m_objOnFocus.position.x, t) + CAM_OFFSET.x;
+			newPos.y = Mathf.Lerp (m_fLastPosY, m_objOnFocus.position.y, t) + CAM_OFFSET.y;
         
             if (m_attachedCamera.orthographicSize <= MIN_ORTHOSIZE)
             {
@@ -90,8 +92,8 @@ public class MotionCamera : MonoBehaviour
                 }
                 
                 m_attachedCamera.orthographicSize = MIN_ORTHOSIZE;
-                newPos.x = m_objOnFocus.position.x;
-                newPos.y = m_objOnFocus.position.y;
+				newPos.x = m_objOnFocus.position.x + CAM_OFFSET.x;
+				newPos.y = m_objOnFocus.position.y + CAM_OFFSET.y;
             }
         }
         
