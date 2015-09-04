@@ -14,23 +14,24 @@ public class GermLayoutManager : MonoBehaviour
 	private const    string  PREFAB_SOURCE_PATH = "Prefabs/Germ";
 
 	private const    int     ROW_COUNT          = 3;
-	private const    int     COL_COUNT          = 10;
-	private const    int     MAX_GERM_COUNT     = ROW_COUNT * COL_COUNT;
+	private const    int     COL_COUNT           = 10;
+	private const    int     MAX_GERM_COUNT = ROW_COUNT * COL_COUNT;
 
-	private const    float   PARALLAX           = 0.3f;
-	private const    float   BASE_SCALE         = 2.0f;
-	private const    float   COL_INIT_POSY      = 5.0f;
+	private const    float   PARALLAX               = 0.3f;
+    private const    float   BASE_SCALE           = 2.0f;
+    private const    float   COL_INIT_POSY       = -1.0f;
+    private const    float   COL_INIT_POSX       = 5.0f;
 
 	private readonly Vector2 ACTUAL_SPRITE_SIZE = new Vector2 (166.0f, 144.0f) * Constants.PPU_MULTIPLIER;
-	private readonly Vector2 PADDING            = new Vector2 (0.9f, 1.2f);
+	private readonly Vector2 PADDING                    = new Vector2 (0.9f, 1.2f);
 	#endregion
 
 	private Transform        m_transform;
 	private Transform        m_tCurrGermFollowed;
-	private Camera			 m_mainCamera;
+	private Camera			  m_mainCamera;
 
-	private int              m_iCurrGermIdx;
-	private int              m_iSeed;
+	private int m_iCurrGermIdx;
+	private int m_iSeed;
 
 	private System.Random    m_random;
 	private List<GameObject> m_listGerms = new List<GameObject> ();
@@ -51,7 +52,7 @@ public class GermLayoutManager : MonoBehaviour
 
 	protected void Update ()
 	{
-		if (GameStateManager.Instance.IsPaused ||
+		if (//GameStateManager.Instance.IsPaused ||
 		    GameStateManager.Instance.CurrentState != GameState.Running)
 		{
 			return;
@@ -98,14 +99,15 @@ public class GermLayoutManager : MonoBehaviour
 		int rowIdx = p_idx % ROW_COUNT;
 		
 		float colPosY    = ACTUAL_SPRITE_SIZE.y * BASE_SCALE * PADDING.y;
-		float colOffsetY = (colPosY * rowIdx) - (colPosY * 0.5f * (colIdx % 2));
+        float colOffsetX = ACTUAL_SPRITE_SIZE.x * BASE_SCALE * PADDING.x * colIdx;
+        float colOffsetY = (colPosY * rowIdx) - (colPosY * 0.5f * (colIdx % 2));
 		
 		Transform tObj = p_obj.transform;
 		tObj.SetParent (this.transform);
 		tObj.localScale *= BASE_SCALE;
-		tObj.position = new Vector3 (ACTUAL_SPRITE_SIZE.x * BASE_SCALE * PADDING.x * colIdx,
-		                             COL_INIT_POSY - colOffsetY,
-		                             0.0f);
+        tObj.position = new Vector3 (  COL_INIT_POSX + colOffsetX,
+		                                            COL_INIT_POSY - colOffsetY,
+		                                            0.0f);
 		GenerateNextGerm (p_idx);
 	}
 

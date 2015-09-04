@@ -55,8 +55,9 @@ public class LoadScreenManager : MonoBehaviour
 		UIStateManager.Instance.ActiveScreens = UIState.Reset;
 		//UIStateManager.Instance.ChangeUIState (UIState.OnTitleScreen);
 		//GameStateManager.Instance.ChangeGameState (GameState.Inactive);
-		UIStateManager.Instance.ChangeUIState (UIState.OnGameScreen);
-		GameStateManager.Instance.ChangeGameState (GameState.Start);
+		//UIStateManager.Instance.ChangeUIState (UIState.OnGameScreen);
+		//GameStateManager.Instance.ChangeGameState (GameState.Start);
+        GameStateManager.Instance.ChangeGameState (GameState.Idle);
 
 		m_objMainBG.SetActive (false);
 		m_txtLoading.gameObject.SetActive (false);

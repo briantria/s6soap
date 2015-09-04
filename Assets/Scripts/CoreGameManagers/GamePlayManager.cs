@@ -17,7 +17,6 @@ public class GamePlayManager : MonoBehaviour
 	[SerializeField] private MainObject m_mainObject;
 	[SerializeField] private GermLayoutManager m_germLayoutManager;
 
-	private Camera m_mainCamera;
 	private List<LevelPatternManager> m_listLevelPatterns = new List<LevelPatternManager>();
 
 	private static GamePlayManager m_instance = null;
@@ -38,7 +37,6 @@ public class GamePlayManager : MonoBehaviour
 	protected void Awake ()
 	{
 		m_instance = this;
-		m_mainCamera = Camera.main;
 		SpeedMultiplier = 1.0f;
 
 		int iMultiplier  = 4;  // 4 level pattern elements
@@ -53,7 +51,7 @@ public class GamePlayManager : MonoBehaviour
 
 	protected void Update ()
 	{
-		if (GameStateManager.Instance.IsPaused ||
+		if (//GameStateManager.Instance.IsPaused ||
 		    GameStateManager.Instance.CurrentState != GameState.Running)
 		{
 			return;
@@ -62,7 +60,6 @@ public class GamePlayManager : MonoBehaviour
 		if (LEVEL_SPEED * SpeedMultiplier < LEVEL_TOP_SPEED)
 		{
 			SpeedMultiplier += 0.05f * Time.deltaTime;
-			m_mainCamera.orthographicSize += 0.08f * Time.deltaTime;
 		}
 	}
 
@@ -100,7 +97,6 @@ public class GamePlayManager : MonoBehaviour
 			}
 
 			SpeedMultiplier = 1.0f;
-			Invoke ("DelayRunningState", 0.02f);
 
 			break;
 		}
@@ -117,35 +113,31 @@ public class GamePlayManager : MonoBehaviour
 
 			break;
 		}
+        case GameState.Idle:
+        {
+            MapGenerator.Instance.Reset ();
+            
+            for (int idx = 0; idx < MAX_LEVEL_PATTERN_COUNT; ++idx)
+            {
+                m_listLevelPatterns[idx].Reset ();
+            }
+            
+            m_germLayoutManager.Reset ();
+            
+            break;
+        }
 		case GameState.Restart:
 		{
-			MapGenerator.Instance.Reset ();
-			for (int idx = 0; idx < MAX_LEVEL_PATTERN_COUNT; ++idx)
-			{
-				m_listLevelPatterns[idx].Reset ();
-			}
-
-			m_mainObject.Reset ();
 			m_mainObject.RBody2D.WakeUp ();
-			m_germLayoutManager.Reset ();
+            m_mainObject.RBody2D.isKinematic = false;
 
 			SpeedMultiplier = 1.0f;
-			Invoke ("DelayRunningState", 0.02f);
 
 			break;
 		}
 		case GameState.Running:
 		{
-			// Debug.Log ("Game Running!");
-			m_mainObject.RBody2D.WakeUp ();
-			//m_mainObject.gameObject.SetActive (false);
 			break;
 		}}
-	}
-	
-	private void DelayRunningState ()
-	{
-		GameStateManager.Instance.IsPaused = false;
-		GameStateManager.Instance.ChangeGameState (GameState.Running);
 	}
 }
