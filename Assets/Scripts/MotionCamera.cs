@@ -12,10 +12,13 @@ public class MotionCamera : MonoBehaviour
     private const float FOLLOW_LIMIT_Y = -6.0f;
     private const float DEFAULT_POSX = 3.5f;
     
+    private float m_fLastOrthoSize;
+    private float m_fLastPosX;
+    private float m_fLastPosY;
+    
     private bool m_bFollowMainObject;
     private bool m_bLerpToMainObject;
     private bool m_bLerpToMax;
-//    private bool m_bLerpToDefault;
 
     private Camera m_attachedCamera;
     private Transform m_transform;
@@ -69,6 +72,29 @@ public class MotionCamera : MonoBehaviour
             }
         }
         
+        if (m_bLerpToMainObject)
+        {
+            m_attachedCamera.orthographicSize -= GamePlayManager.LEVEL_SPEED * GamePlayManager.Instance.SpeedMultiplier * 0.3f * Time.deltaTime;
+            float t  = m_fLastOrthoSize - m_attachedCamera.orthographicSize;
+                   t /= m_fLastOrthoSize - MIN_ORTHOSIZE;
+            
+            newPos.x = Mathf.Lerp (m_fLastPosX, m_objOnFocus.position.x, t);
+            newPos.y = Mathf.Lerp (m_fLastPosY, m_objOnFocus.position.y, t);
+        
+            if (m_attachedCamera.orthographicSize <= MIN_ORTHOSIZE)
+            {
+                if (m_objOnFocus.GetComponent<MainObject>().ResetReady)
+                {
+                    m_bLerpToMainObject = false;
+                    GameStateManager.Instance.ChangeGameState (GameState.Idle);
+                }
+                
+                m_attachedCamera.orthographicSize = MIN_ORTHOSIZE;
+                newPos.x = m_objOnFocus.position.x;
+                newPos.y = m_objOnFocus.position.y;
+            }
+        }
+        
         m_transform.position = newPos;
     }
     
@@ -79,9 +105,7 @@ public class MotionCamera : MonoBehaviour
         {
             m_bFollowMainObject = false;
             m_bLerpToMainObject = false;
-//            m_bLerpToDefault = false;
             m_bLerpToMax = false;
-//            GameStateManager.Instance.IsPaused = true;
             
             break;
         }
@@ -89,25 +113,22 @@ public class MotionCamera : MonoBehaviour
         {
             m_bFollowMainObject = true;
             m_bLerpToMainObject = false;
-//            m_bLerpToDefault = true;
             
             break;
         }
         case GameState.GameOver:
         {
+            m_fLastOrthoSize = m_attachedCamera.orthographicSize;
+            m_fLastPosX = m_transform.position.x;
+            m_fLastPosY = m_transform.position.y;
             m_bLerpToMainObject = true;
             m_bFollowMainObject = false;
-//            m_bLerpToDefault = false;
             m_bLerpToMax = false;
             
             break;
         }
         case GameState.Running:
         {
-//            m_bFollowMainObject = false;
-//            m_bLerpToMainObject = false;
-//            m_bLerpToDefault = true;
-            
             break;
         }}
     }

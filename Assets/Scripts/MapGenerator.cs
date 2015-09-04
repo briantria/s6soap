@@ -16,7 +16,8 @@ public class MapGenerator : MonoBehaviour
 	public static readonly string TAG_OBSTACLE     = "Obstacle";
 	public static readonly string TAG_MAINPLATFORM = "MainPlatform";
 	public static readonly string TAG_PLATFORM     = "Platform";
-	public static readonly string TAG_DEATHAREA    = "DeathArea";
+    public static readonly string TAG_DEATH_AREA    = "DeathArea";
+    public static readonly string TAG_RESET_AREA    = "ResetArea";
 	public static readonly string TAG_COLLECTIBLE  = "Collectible";
 
 	#region properties

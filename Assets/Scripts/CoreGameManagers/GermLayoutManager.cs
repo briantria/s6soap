@@ -20,7 +20,7 @@ public class GermLayoutManager : MonoBehaviour
 	private const    float   PARALLAX               = 0.3f;
     private const    float   BASE_SCALE           = 2.0f;
     private const    float   COL_INIT_POSY       = -1.0f;
-    private const    float   COL_INIT_POSX       = 4.0f;
+    private const    float   COL_INIT_POSX       = 5.0f;
 
 	private readonly Vector2 ACTUAL_SPRITE_SIZE = new Vector2 (166.0f, 144.0f) * Constants.PPU_MULTIPLIER;
 	private readonly Vector2 PADDING                    = new Vector2 (0.9f, 1.2f);

@@ -1091,6 +1091,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!1 &773733769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 773733770}
+  - 61: {fileID: 773733771}
+  m_Layer: 0
+  m_Name: ResetArea
+  m_TagString: ResetArea
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &773733770
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 773733769}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -15, z: -10}
+  m_LocalScale: {x: 20, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1670863780}
+  m_RootOrder: 4
+--- !u!61 &773733771
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 773733769}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!1 &823248824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,6 +1780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_groundGlow: {fileID: 1456365154}
   m_objPlayButton: {fileID: 604399090}
+  m_collider: {fileID: 1063321540}
   m_torque: -.550000012
   m_jumpVelocity: 8
   m_jumpDelay: .150000006
@@ -1757,7 +1799,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 2
   m_CollisionDetection: 0
-  m_Constraints: 1
+  m_Constraints: 5
 --- !u!20 &1105639280 stripped
 Camera:
   m_PrefabParentObject: {fileID: 2001310, guid: 636e4116fe55b4c1e9531a854d89d18c,
@@ -2683,6 +2725,7 @@ Transform:
   - {fileID: 1456365153}
   - {fileID: 1861034987}
   - {fileID: 1579934846}
+  - {fileID: 773733770}
   m_Father: {fileID: 0}
   m_RootOrder: 10
 --- !u!114 &1670863781
