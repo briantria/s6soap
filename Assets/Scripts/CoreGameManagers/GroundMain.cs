@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Brian Tria
  * 08/31/2015
  * 
@@ -29,7 +29,7 @@ public class GroundMain : LevelElementManager
 
 		if (MapGenerator.Instance.GroundCode[p_idx] > 1)
 		{
-			p_obj.tag = MapGenerator.TAG_PLATFORM;
+			p_obj.tag = MapGenerator.TAG_EDGE_PLATFORM;
 			//p_obj.SetActive (true);
 			sr.sprite = Resources.Load (GROUND_EDGE_SPRITE_PATH, typeof(Sprite)) as Sprite;
 			spriteScale.x = (5 - (MapGenerator.Instance.GroundCode[p_idx] * 2));

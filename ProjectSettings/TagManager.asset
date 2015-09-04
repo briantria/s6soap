@@ -6,7 +6,7 @@ TagManager:
   tags:
   - MainPlatform
   - Obstacle
-  - Platform
+  - DraggablePlatform
   - DeathArea
   - EdgePlatform
   - Collectible

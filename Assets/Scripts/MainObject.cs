@@ -16,7 +16,7 @@ public class MainObject : MonoBehaviour
 	[SerializeField] private float m_jumpVelocity;
 	[SerializeField] private float m_jumpDelay;
 	
-	[SerializeField] AudioClip m_audioDeath;
+	[SerializeField] AudioClip m_audioBoost;
 	[SerializeField] AudioClip m_audioJump;
 	[SerializeField] AudioClip m_audioHit;
 	[SerializeField] AudioClip m_audioPlayBtn;
@@ -98,6 +98,12 @@ public class MainObject : MonoBehaviour
 		}
 
 		Vector3 relativePosition = p_collision2D.transform.InverseTransformPoint (p_collision2D.contacts[0].point);
+		m_audioSource.clip = m_audioJump;
+
+		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_DRAGGABLE_PLATFORM))
+		{
+			m_audioSource.clip = m_audioBoost;
+		}
 
 		if (relativePosition.y <= 0)
 		{

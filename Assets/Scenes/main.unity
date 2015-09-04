@@ -294,7 +294,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1882,7 +1882,7 @@ MonoBehaviour:
   m_torque: -.550000012
   m_jumpVelocity: 8
   m_jumpDelay: .150000006
-  m_audioDeath: {fileID: 8300000, guid: a45840e9568114f678718cb1dc6b9dff, type: 3}
+  m_audioBoost: {fileID: 8300000, guid: a45840e9568114f678718cb1dc6b9dff, type: 3}
   m_audioJump: {fileID: 8300000, guid: ebdeec71398a941009225f5d8ba96779, type: 3}
   m_audioHit: {fileID: 8300000, guid: f85bacdac87eb406aadf19985a2ac703, type: 3}
   m_audioPlayBtn: {fileID: 8300000, guid: f039604d5660948b89e0e6d587447b1b, type: 3}
