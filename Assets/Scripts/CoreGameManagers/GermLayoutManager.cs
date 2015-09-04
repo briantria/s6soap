@@ -146,6 +146,13 @@ public class GermLayoutManager : MonoBehaviour
 		{
 			float multiplier = (float)(m_random.Next (50, 100)) * 0.01f;
 			m_listGerms[p_idx].transform.localScale = Vector3.one * BASE_SCALE * multiplier;
+                        
+            SpriteRenderer sr = m_listGerms[p_idx].transform.GetComponentInChildren<SpriteRenderer> ();
+            float r = (float)(m_random.Next (50, 100)) * 0.01f;
+            float g = (float)(m_random.Next (50, 100)) * 0.01f;
+            float b = (float)(m_random.Next (50, 100)) * 0.01f;
+            
+            sr.color = new Color (r, g, b, 1.0f);
 		}
 	}
 }
