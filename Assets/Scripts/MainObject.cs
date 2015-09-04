@@ -60,8 +60,11 @@ public class MainObject : MonoBehaviour
 		if (p_collision2D.gameObject.CompareTag(MapGenerator.TAG_OBSTACLE)  ||
             p_collision2D.gameObject.CompareTag(MapGenerator.TAG_DEATH_AREA) )
 		{
-			//m_rigidbody.Sleep ();
-			//UIStateManager.Instance.ChangeUIState (UIState.OnResultScreen);
+            if (GamePlayManager.Instance.SpeedMultiplier < 1.0f)
+            {
+                GamePlayManager.Instance.SpeedMultiplier = 1.0f;
+            }
+            
             m_collider.isTrigger = true;
             m_rigidbody.velocity = Vector2.zero;
             Jump ();
@@ -74,8 +77,13 @@ public class MainObject : MonoBehaviour
 		if (relativePosition.y <= 0)
 		{
 			// Debug.Log ("main object is not above");
+            GamePlayManager.Instance.SpeedMultiplier = 0.0f;
 			return;
 		}
+        else if (GamePlayManager.Instance.SpeedMultiplier < 1.0f)
+        {
+            GamePlayManager.Instance.SpeedMultiplier = 1.0f;
+        }
 
 		m_rigidbody.velocity = Vector2.zero;
 		CancelInvoke ("Jump");

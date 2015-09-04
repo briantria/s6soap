@@ -74,7 +74,7 @@ public class MotionCamera : MonoBehaviour
         
         if (m_bLerpToMainObject)
         {
-            m_attachedCamera.orthographicSize -= GamePlayManager.LEVEL_SPEED * GamePlayManager.Instance.SpeedMultiplier * 0.3f * Time.deltaTime;
+            m_attachedCamera.orthographicSize -= GamePlayManager.LEVEL_SPEED * 1.3f * Time.deltaTime;
             float t  = m_fLastOrthoSize - m_attachedCamera.orthographicSize;
                    t /= m_fLastOrthoSize - MIN_ORTHOSIZE;
             
